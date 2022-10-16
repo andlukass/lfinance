@@ -14,13 +14,16 @@ import {
 
 import { Link } from "react-router-dom";
 
-export default function Buttons() {
+export default function HomeButtons() {
   const btnSize = 30;
 
   return (
     <MasterContainerButtons>
       <ButtonsContainer>
-        <Link to="/Movements" state={{ isExpense: false }}>
+        <Link
+          to="/Movements"
+          state={{ isExpense: false, title: "Adicionar Receita" }}
+        >
           <ButtonContainer>
             <p>
               Adicionar <br />
@@ -29,7 +32,10 @@ export default function Buttons() {
             <AiOutlinePlus size={btnSize} />
           </ButtonContainer>
         </Link>
-        <Link to="/Movements" state={{ isExpense: true }}>
+        <Link
+          to="/Movements"
+          state={{ isExpense: true, title: "Adicionar Despesa" }}
+        >
           <ButtonContainer>
             <p>
               Adicionar <br />
@@ -38,28 +44,43 @@ export default function Buttons() {
             <AiOutlineMinus size={btnSize} />
           </ButtonContainer>
         </Link>
-        <ButtonContainer className="disabled">
+        <ButtonContainer
+          className="disabled"
+          onClick={() => {
+            alert("feature coming soon c:");
+          }}
+        >
           <p>
             Ver <br />
             Carteira
           </p>
           <AiOutlineWallet size={btnSize} />
         </ButtonContainer>
-        <ButtonContainer className="disabled">
+        <ButtonContainer
+          className="disabled"
+          onClick={() => {
+            alert("feature coming soon c:");
+          }}
+        >
           <p>
             Transferir <br />
             entre contas
           </p>
           <AiOutlineSwap size={btnSize} />
         </ButtonContainer>
-        <ButtonContainer className="disabled">
+        <ButtonContainer
+          onClick={() => {
+            alert("feature coming soon c:");
+          }}
+          className="disabled"
+        >
           <p>
             Investir <br />
             patrimonio
           </p>
           <AiOutlineStock size={btnSize} />
         </ButtonContainer>
-        <Link to="/editBalance">
+        <Link to="/editBalance" state={{ title: "Editar Saldos" }}>
           <ButtonContainer>
             <p>
               Editar <br />

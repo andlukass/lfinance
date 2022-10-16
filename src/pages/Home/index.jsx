@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
 import { BackGroundContainer } from "../../services/styling/styles";
-import Buttons from "./components/Buttons";
+import HomeButtons from "./components/HomeButtons";
 import LastMovements from "./components/LastMovements";
 import Patrimony from "./components/Patrimony";
 import Summary from "./components/Summary";
@@ -12,7 +12,7 @@ export default function Home() {
       <BackGroundContainer>
         <Patrimony />
         <Summary />
-        <Buttons />
+        <HomeButtons />
         <LastMovements />
       </BackGroundContainer>
     </>

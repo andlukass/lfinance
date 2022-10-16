@@ -9,6 +9,8 @@ import { AuthContext } from "../../../../contexts/auth";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
 
+import { Link } from "react-router-dom";
+
 export default function Summary() {
   const { userEmail } = useContext(AuthContext);
 
@@ -124,9 +126,12 @@ export default function Summary() {
   return (
     <>
       <DownContainer>
-        <DateContainer>
-          <p>{translatedDate}</p>
-        </DateContainer>
+        {" "}
+        <Link to="/MonthMovements">
+          <DateContainer>
+            <p>{translatedDate}</p>
+          </DateContainer>{" "}
+        </Link>
         <DetailsContainer>
           {showValue ? (
             <div

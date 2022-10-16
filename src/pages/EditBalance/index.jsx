@@ -5,7 +5,7 @@ import {
 } from "../../services/styling/styles";
 
 import { EditBalanceContainer } from "./styles";
-import HeaderEditBalance from "../../components/Header/HeaderEditBalance";
+import Header from "../../components/Header";
 
 import { useAuth } from "../../contexts/auth";
 
@@ -105,7 +105,7 @@ export default function EditBalance() {
   };
   return (
     <>
-      <HeaderEditBalance />
+      <Header />
       <BackGroundContainer>
         <MasterContainer>
           <EditBalanceContainer>

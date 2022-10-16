@@ -24,7 +24,7 @@ export default function AuthProvider({ children }) {
       setUserEmail(user.email);
       setUserName(user.displayName);
       setUserPhoto(user.photoURL);
-      navigate("Home");
+      navigate("Home", { state: { title: "Lfinance" } });
     });
   }
 

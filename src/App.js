@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import AuthProvider from "./contexts/auth";
 import Movements from "./pages/Movements";
 import EditBalance from "./pages/EditBalance";
+import MonthMovements from "./pages/MonthMovements";
 
 import "./App.css";
 import { RequireAuth } from "./services/requireAuth";
@@ -36,6 +37,14 @@ function App() {
               element={
                 <RequireAuth>
                   <EditBalance />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="MonthMovements"
+              element={
+                <RequireAuth>
+                  <MonthMovements />
                 </RequireAuth>
               }
             />

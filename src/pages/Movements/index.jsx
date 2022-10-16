@@ -19,7 +19,7 @@ import { db } from "../../services/firebase";
 import { AuthContext } from "../../contexts/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import HeaderNavigation from "../../components/Header/HeaderNavigation";
+import Header from "../../components/Header";
 
 export default function Movements() {
   const navigate = useNavigate();
@@ -184,7 +184,7 @@ export default function Movements() {
   }
   return (
     <>
-      <HeaderNavigation />
+      <Header />
       <BackGroundContainer>
         <MasterContainer>
           <h2>Descrição</h2>
@@ -213,7 +213,9 @@ export default function Movements() {
             }}
           >
             {accounts.map((item, index) => (
-              <option value={item}>{item}</option>
+              <option key={index} value={item}>
+                {item}
+              </option>
             ))}
           </select>
           <p>Quando foi</p>
