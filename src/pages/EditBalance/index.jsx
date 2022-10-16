@@ -9,7 +9,7 @@ import HeaderEditBalance from "../../components/Header/HeaderEditBalance";
 
 import { useAuth } from "../../contexts/auth";
 
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { BsPencilSquare, BsCheckLg, BsXSquareFill } from "react-icons/bs";
 
@@ -32,7 +32,7 @@ export default function EditBalance() {
 
   useEffect(() => {
     getAccounts();
-  }, []);
+  });
 
   async function getAccounts() {
     onSnapshot(userRef, (snapshot) => {

@@ -28,7 +28,7 @@ export default function LastMovements() {
     if (userEmail) {
       getMovements();
     }
-  }, [userEmail]);
+  });
 
   function getMovements() {
     onSnapshot(q, (snapshot) => {

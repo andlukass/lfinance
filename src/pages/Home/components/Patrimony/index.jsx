@@ -20,7 +20,7 @@ export default function Patrimony() {
     if (auth.userEmail) {
       balance();
     }
-  }, [auth.userEmail]);
+  });
 
   async function balance() {
     onSnapshot(userRef, (doc) => {

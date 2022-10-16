@@ -18,7 +18,6 @@ export default function Summary() {
 
   const [receipt, setReceipt] = useState(0);
   const [expense, setExpense] = useState(0);
-  const [total, setTotal] = useState(0);
 
   const movRef = collection(db, `users/${userEmail}/movements`);
 
@@ -45,7 +44,7 @@ export default function Summary() {
       getMonthTotal();
     }
     translateDate();
-  }, [userEmail]);
+  });
 
   async function getMonthTotal() {
     const q = query(
@@ -81,8 +80,6 @@ export default function Summary() {
         0
       );
       setReceipt(parseFloat(receiptResult).toFixed(2).replace(".", ","));
-
-      setTotal(parseFloat(receipt) - parseFloat(expense));
     });
   }
 
