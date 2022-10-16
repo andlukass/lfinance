@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { DownContainer } from "../../../../services/styling/styles";
-import { DetailsContainer, DateContainer } from "./styles";
 
 import { FaRetweet } from "react-icons/fa";
 
@@ -126,36 +125,31 @@ export default function Summary() {
   return (
     <>
       <DownContainer>
-        {" "}
         <Link to="/MonthMovements">
-          <DateContainer>
-            <p>{translatedDate}</p>
-          </DateContainer>{" "}
+          <p>{translatedDate}</p>
         </Link>
-        <DetailsContainer>
-          {showValue ? (
-            <div
-              style={{ display: "flex", alignItems: "center" }}
-              onClick={() => setShowValue(!showValue)}
-            >
-              <p className="expense">
-                Esse mês gastou <br /> {expense} €
-              </p>
-              <FaRetweet size={20} color="#ff8888" />
-            </div>
-          ) : (
-            <div
-              style={{ display: "flex", alignItems: "center" }}
-              onClick={() => setShowValue(!showValue)}
-            >
-              <p className="receipt">
-                Esse mês ganhou <br />
-                {receipt} €
-              </p>
-              <FaRetweet size={20} color="#c5f4b0" />
-            </div>
-          )}
-        </DetailsContainer>
+        {showValue ? (
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => setShowValue(!showValue)}
+          >
+            <p className="expense">
+              Esse mês gastou <br /> {expense} €
+            </p>
+            <FaRetweet size={20} color="#ff8888" />
+          </div>
+        ) : (
+          <div
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => setShowValue(!showValue)}
+          >
+            <p className="receipt">
+              Esse mês ganhou <br />
+              {receipt} €
+            </p>
+            <FaRetweet size={20} color="#c5f4b0" />
+          </div>
+        )}
       </DownContainer>
     </>
   );
