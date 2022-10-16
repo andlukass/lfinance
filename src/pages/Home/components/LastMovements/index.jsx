@@ -55,7 +55,7 @@ export default function LastMovements() {
       {movements
         .filter((item, idx) => idx < 10)
         .map((item, index) => (
-          <>
+          <div key={index + 10} style={{ marginBottom: 10 }}>
             <Link
               key={index}
               to="/Movements"
@@ -72,9 +72,7 @@ export default function LastMovements() {
               {" "}
               {item.type} {item.value} € {item.prep} {item.desc}
             </Link>
-            <br />
-            <br />
-          </>
+          </div>
         ))}
     </MasterContainer>
   );

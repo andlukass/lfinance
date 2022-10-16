@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import {
   MasterContainer,
   BackGroundContainer,
+  Buttons,
 } from "../../services/styling/styles";
 
 import {
@@ -125,7 +126,7 @@ export default function Movements() {
             });
           });
           alert("movimentação alterada!  ;)");
-          navigate("Home");
+          navigate("/Home");
         } else {
           //     CASO SEJA CONTAS DIFERENTES
           await getDoc(userRef).then((snapshot) => {
@@ -228,19 +229,31 @@ export default function Movements() {
           <div>
             {" "}
             {location.state.id ? (
-              <button class="addBtn" onClick={addToDb} disabled={btnCtrl}>
-                EDITAR
-              </button>
+              <Buttons>
+                <button className="addBtn" onClick={addToDb} disabled={btnCtrl}>
+                  EDITAR
+                </button>
+              </Buttons>
             ) : (
-              <button class="addBtn" onClick={addToDb} disabled={btnCtrl}>
-                ADICIONAR
-              </button>
+              <Buttons>
+                {" "}
+                <button className="addBtn" onClick={addToDb} disabled={btnCtrl}>
+                  ADICIONAR
+                </button>
+              </Buttons>
             )}
             {location.state.id ? (
               <div>
-                <button class="delBtn" onClick={delFromDb} disabled={btnCtrl}>
-                  APAGAR
-                </button>
+                <Buttons>
+                  {" "}
+                  <button
+                    className="delBtn"
+                    onClick={delFromDb}
+                    disabled={btnCtrl}
+                  >
+                    APAGAR
+                  </button>
+                </Buttons>
               </div>
             ) : (
               <></>

@@ -59,13 +59,15 @@ export default function Buttons() {
           </p>
           <AiOutlineStock size={btnSize} />
         </ButtonContainer>
-        <ButtonContainer className="disabled">
-          <p>
-            Editar <br />
-            Saldo
-          </p>
-          <AiOutlineSetting size={btnSize} />
-        </ButtonContainer>
+        <Link to="/editBalance">
+          <ButtonContainer>
+            <p>
+              Editar <br />
+              Saldo
+            </p>
+            <AiOutlineSetting size={btnSize} />
+          </ButtonContainer>
+        </Link>
       </ButtonsContainer>
     </MasterContainerButtons>
   );

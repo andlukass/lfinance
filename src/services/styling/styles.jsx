@@ -36,12 +36,6 @@ export const MasterContainer = styled.div`
   .expense {
     color: #ff8888;
   }
-  .addBtn {
-    background-color: #75b7f5;
-  }
-  .delBtn {
-    background-color: #ff8888;
-  }
   input {
     text-align: center;
     height: 30px;
@@ -52,6 +46,9 @@ export const MasterContainer = styled.div`
     height: 35px;
     width: 63%;
   }
+`;
+
+export const Buttons = styled.div`
   button {
     margin-top: 20px;
     color: white;
@@ -59,6 +56,12 @@ export const MasterContainer = styled.div`
     border: 0px;
     border-radius: 10px;
     width: 30vh;
+  }
+  .addBtn {
+    background-color: #75b7f5;
+  }
+  .delBtn {
+    background-color: #ff8888;
   }
 `;
 
