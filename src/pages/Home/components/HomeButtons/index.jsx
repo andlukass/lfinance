@@ -53,7 +53,8 @@ export default function HomeButtons() {
             <AiOutlineSetting size={btnSize} />
           </ButtonContainer>
         </Link>
-
+      </ButtonsContainer>
+      <ButtonsContainer>
         <ButtonContainer
           className="disabled space"
           onClick={() => {
@@ -67,7 +68,7 @@ export default function HomeButtons() {
           <AiOutlineSwap size={btnSize} />
         </ButtonContainer>
         <ButtonContainer
-          className="disabled space"
+          className="disabled"
           onClick={() => {
             alert("feature coming soon c:");
           }}
