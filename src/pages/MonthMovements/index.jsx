@@ -1,79 +1,87 @@
-import { MasterContainer } from "../../services/styling/styles";
-
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  limit,
-} from "firebase/firestore";
+  BackGroundContainer,
+  MasterContainer,
+} from "../../services/styling/styles";
 
-import { useState, useEffect, useContext } from "react";
+import Header from "../../components/Header";
 
-import { db } from "../../services/firebase";
+import { useAuth } from "../../contexts/auth";
 
-import { AuthContext } from "../../contexts/auth";
+import MovementsList from "../../components/MovementsList";
+import DateControl from "./components/DateControl";
+import DashBoard from "./components/DashBoard";
 
 export default function MonthMovements() {
-  const { userEmail } = useContext(AuthContext);
+  const auth = useAuth();
 
-  const movRef = collection(db, `users/${userEmail}/movements`);
-  const q = query(movRef, orderBy("date", "desc"), limit(10));
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [date, setDate] = useState(new Date(year, month, 0));
 
-  const [movements, setMovements] = useState([]);
+  const [monthMovementsList, setMonthMovementsList] = useState([]);
 
   useEffect(() => {
-    if (userEmail) {
-      getMovements();
+    if (auth.snapControl === false) {
+      auth.getMovements();
     }
-  });
+    movementsByMonth();
+    setDate(new Date(year, month, 0));
+  }, [month, auth.snapControl]);
 
-  function getMovements() {
-    onSnapshot(q, (snapshot) => {
-      var tempMov = [];
-      snapshot.forEach((doc) => {
-        tempMov.push({
-          id: doc.id,
-          desc: doc.data().description,
-          account: doc.data().account,
-          date: doc.data().date,
-          value: parseFloat(doc.data().value).toFixed(2).replace(".", ","),
-          type: doc.data().isExpense ? "Gastou" : "Recebeu",
-          prep: doc.data().isExpense ? "em" : "de",
-          isExpense: doc.data().isExpense ? true : false,
-        });
-        setMovements(tempMov);
-      });
+  const addMonth = () => {
+    if (month === 12) {
+      setMonth(1);
+      setYear(year + 1);
+    } else {
+      setMonth(month + 1);
+    }
+  };
+  const decMonth = () => {
+    if (month === 1) {
+      setMonth(12);
+      setYear(year - 1);
+    } else {
+      setMonth(month - 1);
+    }
+  };
+
+  const movementsByMonth = () => {
+    let start = new Date(year, month - 1, 1);
+    let end = new Date(year, month - 1, date.getDate());
+    let tempMov = auth.movements.filter(function (ele) {
+      return ele.date >= start && ele.date <= end;
     });
-  }
+    setMonthMovementsList(tempMov);
+  };
 
   return (
-    <MasterContainer>
-      <h2>Ultimas Movimentações</h2>
-      {movements
-        .filter((item, idx) => idx < 10)
-        .map((item, index) => (
-          <div key={index + 10} style={{ marginBottom: 10 }}>
-            <Link
-              key={index}
-              to="/Movements"
-              className={item.isExpense ? "expense" : "receipt"}
-              state={{
-                id: item.id,
-                value: item.value,
-                desc: item.desc,
-                account: item.account,
-                date: item.date,
-                isExpense: item.isExpense,
-              }}
-            >
-              {" "}
-              {item.type} {item.value} € {item.prep} {item.desc}
-            </Link>
-          </div>
-        ))}
-    </MasterContainer>
+    <>
+      <Header />
+      <BackGroundContainer>
+        <MasterContainer>
+          <DateControl
+            actualMonth={month}
+            actualYear={year}
+            decMonth={decMonth}
+            addMonth={addMonth}
+          />
+
+          <DashBoard date={date} />
+
+          {monthMovementsList.length === 0 ? (
+            <p>Nenhuma movimentação este mês.</p>
+          ) : (
+            <></>
+          )}
+
+          <MovementsList
+            movements={monthMovementsList}
+            index={monthMovementsList.length}
+          />
+        </MasterContainer>
+      </BackGroundContainer>
+    </>
   );
 }

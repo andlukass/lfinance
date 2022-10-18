@@ -39,7 +39,7 @@ export default function Movements() {
     location.state.id ? location.state.account : "dinheiro"
   );
   const [date, setDate] = useState(
-    location.state.id ? new Date(location.state.date.toDate()) : new Date()
+    location.state.id ? new Date(location.state.date) : new Date()
   );
   const [dateForm, setDateForm] = useState(
     date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
@@ -98,7 +98,7 @@ export default function Movements() {
     ),
     description: movementDesc,
     isExpense: isExpense,
-    value: parseFloat(movementValue.replace(",", ".")),
+    value: parseFloat(movementValue),
   };
 
   async function addToDb() {
@@ -113,10 +113,8 @@ export default function Movements() {
         updateDoc(docRef, docData);
         //      CASO A CONTA SEJA IGUAL
         if (location.state.account === account) {
-          let oldValueFloat = parseFloat(
-            location.state.value.replace(",", ".")
-          );
-          let newValueFloat = parseFloat(movementValue.replace(",", "."));
+          let oldValueFloat = parseFloat(location.state.value);
+          let newValueFloat = parseFloat(movementValue);
           const calcExpense = oldValueFloat - newValueFloat;
           const calcReceipt = newValueFloat - oldValueFloat;
           await getDoc(userRef).then((snapshot) => {
@@ -133,16 +131,16 @@ export default function Movements() {
             const snap = snapshot.get(location.state.account);
             updateDoc(userRef, {
               [location.state.account]: isExpense
-                ? snap + parseFloat(location.state.value.replace(",", "."))
-                : snap - parseFloat(location.state.value.replace(",", ".")),
+                ? snap + parseFloat(location.state.value)
+                : snap - parseFloat(location.state.value),
             });
           });
           await getDoc(userRef).then((snapshot) => {
             const snap = snapshot.get(account);
             updateDoc(userRef, {
               [account]: isExpense
-                ? snap - parseFloat(movementValue.replace(",", "."))
-                : snap + parseFloat(movementValue.replace(",", ".")),
+                ? snap - parseFloat(movementValue)
+                : snap + parseFloat(movementValue),
             });
           });
           alert("movimentação alterada!  ;)");
@@ -155,8 +153,8 @@ export default function Movements() {
         await getDoc(userRef).then((snapshot) => {
           const snap = snapshot.get(account);
           const calc = isExpense
-            ? parseFloat(snap) - parseFloat(movementValue.replace(",", "."))
-            : parseFloat(snap) + parseFloat(movementValue.replace(",", "."));
+            ? parseFloat(snap) - parseFloat(movementValue)
+            : parseFloat(snap) + parseFloat(movementValue);
           updateDoc(userRef, {
             [account]: calc,
           });
@@ -173,8 +171,8 @@ export default function Movements() {
     await getDoc(userRef).then((snapshot) => {
       const snap = snapshot.get(account);
       const calc = isExpense
-        ? parseFloat(snap) + parseFloat(movementValue.replace(",", "."))
-        : parseFloat(snap) - parseFloat(movementValue.replace(",", "."));
+        ? parseFloat(snap) + parseFloat(movementValue)
+        : parseFloat(snap) - parseFloat(movementValue);
       updateDoc(userRef, {
         [account]: calc,
       });

@@ -17,18 +17,20 @@ export const BackGroundContainer = styled.div`
 export const MasterContainer = styled.div`
   text-align: center;
   background-color: #232c33;
-  margin: 20px;
-  padding: 10px 10vw;
-  width: 30vh;
-  max-width: 400px;
+  margin: 20px 40px;
+  padding: 20px 30px;
+  width: 70vw;
+  max-width: 550px;
   padding-bottom: 30px;
   border-radius: 10px;
   color: #c9c7c7;
   font-size: 17px;
   font-weight: 700;
   a {
+    display: inline-block;
     color: inherit;
     text-decoration: none;
+    padding: 10px;
   }
   .receipt {
     color: #c5f4b0;

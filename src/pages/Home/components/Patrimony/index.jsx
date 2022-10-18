@@ -35,23 +35,20 @@ export default function Patrimony() {
   }
 
   return (
-    <ContainerTop>
+    <ContainerTop onClick={() => setShowValue(!showValue)}>
       {showValue ? (
         <>
           <p>
             Olá {auth.userName}, você tem <br /> {accBalance} € em suas contas
           </p>
-          <AiOutlineEyeInvisible
-            onClick={() => setShowValue(!showValue)}
-            size={30}
-          />
+          <AiOutlineEyeInvisible size={30} />
         </>
       ) : (
         <>
           <p>
             Olá {auth.userName}, você tem <br /> ******* € em suas contas
           </p>
-          <AiOutlineEye onClick={() => setShowValue(!showValue)} size={30} />
+          <AiOutlineEye size={30} />
         </>
       )}
     </ContainerTop>
