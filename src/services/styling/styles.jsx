@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const BackGroundContainer = styled.div`
-  overflow: scroll;
-  width: 100%;
-  height: 90vh;
+  overflow: auto;
+  width: 100vw;
+  height: 89.9vh;
   background-color: #192025;
   display: flex;
   flex-direction: column;
@@ -24,10 +24,11 @@ export const MasterContainer = styled.div`
   padding-bottom: 30px;
   border-radius: 10px;
   color: #c9c7c7;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: 700;
   a {
-    display: inline-block;
+    display: list-item;
+    list-style: none;
     color: inherit;
     text-decoration: none;
     padding: 10px;
@@ -76,6 +77,7 @@ export const ContainerTop = styled(MasterContainer)`
   align-items: center;
   max-width: 400px;
   width: 90vw;
+  font-size: 15px;
   p {
     margin: 10px;
   }
@@ -86,4 +88,5 @@ export const DownContainer = styled(ContainerTop)`
   border-bottom-right-radius: 40px;
   margin: 0px;
   margin-top: -20px;
+  font-size: 13px;
 `;

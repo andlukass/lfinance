@@ -9,7 +9,7 @@ export default function MovementsList(props) {
         .map((item, index) => (
           <Link
             key={index}
-            to="/Movements"
+            to="/movements"
             className={item.isExpense ? "expense" : "receipt"}
             state={{
               id: item.id,

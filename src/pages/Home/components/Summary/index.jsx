@@ -9,7 +9,7 @@ export default function Summary() {
   return (
     <>
       <DownContainer>
-        <Link to="/MonthMovements">
+        <Link to="/month-movements">
           <TranslateDate />
         </Link>
         <SummaryResume />

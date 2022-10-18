@@ -21,7 +21,7 @@ export default function HomeButtons() {
     <MasterContainerButtons>
       <ButtonsContainer>
         <Link
-          to="/Movements"
+          to="/movements"
           state={{ isExpense: false, title: "Adicionar Receita" }}
         >
           <ButtonContainer>
@@ -33,7 +33,7 @@ export default function HomeButtons() {
           </ButtonContainer>
         </Link>
         <Link
-          to="/Movements"
+          to="/movements"
           state={{ isExpense: true, title: "Adicionar Despesa" }}
         >
           <ButtonContainer>
@@ -44,20 +44,18 @@ export default function HomeButtons() {
             <AiOutlineMinus size={btnSize} />
           </ButtonContainer>
         </Link>
+        <Link to="/edit-balance" state={{ title: "Editar Saldos" }}>
+          <ButtonContainer>
+            <p>
+              Editar <br />
+              Saldo
+            </p>
+            <AiOutlineSetting size={btnSize} />
+          </ButtonContainer>
+        </Link>
+
         <ButtonContainer
-          className="disabled"
-          onClick={() => {
-            alert("feature coming soon c:");
-          }}
-        >
-          <p>
-            Ver <br />
-            Carteira
-          </p>
-          <AiOutlineWallet size={btnSize} />
-        </ButtonContainer>
-        <ButtonContainer
-          className="disabled"
+          className="disabled space"
           onClick={() => {
             alert("feature coming soon c:");
           }}
@@ -69,26 +67,17 @@ export default function HomeButtons() {
           <AiOutlineSwap size={btnSize} />
         </ButtonContainer>
         <ButtonContainer
+          className="disabled space"
           onClick={() => {
             alert("feature coming soon c:");
           }}
-          className="disabled"
         >
           <p>
-            Investir <br />
-            patrimonio
+            Ver <br />
+            Carteira
           </p>
-          <AiOutlineStock size={btnSize} />
+          <AiOutlineWallet size={btnSize} />
         </ButtonContainer>
-        <Link to="/editBalance" state={{ title: "Editar Saldos" }}>
-          <ButtonContainer>
-            <p>
-              Editar <br />
-              Saldo
-            </p>
-            <AiOutlineSetting size={btnSize} />
-          </ButtonContainer>
-        </Link>
       </ButtonsContainer>
     </MasterContainerButtons>
   );

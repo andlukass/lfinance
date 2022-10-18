@@ -9,7 +9,7 @@ import { initializeFirestore } from "firebase/firestore";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAqkqDmiODRTNxinEkBhhVk2a4NF8-L-2M",
-  authDomain: "lfinance.firebaseapp.com",
+  authDomain: "lfinance.app",
   databaseURL:
     "https://lfinance-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "lfinance",

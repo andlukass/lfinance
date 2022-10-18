@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <HeaderContainer>
       <HeaderContent>
-        {location.pathname === "/Home" || location.pathname === "/" ? (
+        {location.pathname === "/home" || location.pathname === "/login" ? (
           <></>
         ) : (
           <BackIcon onClick={() => navigate(-1)}>

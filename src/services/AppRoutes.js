@@ -14,9 +14,17 @@ export default function AppRoutes() {
       <AuthProvider>
         <Routes>
           <>
-            <Route path="*" element={<Login />} />
             <Route
-              path="Home"
+              path="*"
+              element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              }
+            />
+            <Route path="login" element={<Login />} />
+            <Route
+              path="home"
               element={
                 <RequireAuth>
                   <Home />
@@ -24,7 +32,7 @@ export default function AppRoutes() {
               }
             />
             <Route
-              path="Movements"
+              path="movements"
               element={
                 <RequireAuth>
                   <Movements />
@@ -32,7 +40,7 @@ export default function AppRoutes() {
               }
             />
             <Route
-              path="EditBalance"
+              path="edit-balance"
               element={
                 <RequireAuth>
                   <EditBalance />
@@ -40,7 +48,7 @@ export default function AppRoutes() {
               }
             />
             <Route
-              path="MonthMovements"
+              path="month-movements"
               element={
                 <RequireAuth>
                   <MonthMovements />
