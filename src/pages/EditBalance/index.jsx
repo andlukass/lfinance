@@ -178,8 +178,8 @@ export default function EditBalance() {
             </Modal>
 
             {accounts.map((item, index) => (
-              <>
-                <AccContainer key={index}>
+              <div key={index}>
+                <AccContainer>
                   <p>{item.name}</p>
                   <p className="itemValue">{item.value}</p>
                   <IconsContainer>
@@ -203,7 +203,7 @@ export default function EditBalance() {
                     )}
                   </IconsContainer>
                 </AccContainer>
-              </>
+              </div>
             ))}
             <Buttons>
               {" "}

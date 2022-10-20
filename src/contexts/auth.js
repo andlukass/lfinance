@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { useNavigate } from "react-router-dom";
 
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { provider, app, db } from "../services/firebase";
@@ -10,8 +9,6 @@ import { collection, onSnapshot } from "firebase/firestore";
 export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
-  const navigate = useNavigate();
-
   const [userName, setUserName] = useLocalStorage("userName", null);
   const [userEmail, setUserEmail] = useLocalStorage("userEmail", null);
   const [userPhoto, setUserPhoto] = useLocalStorage("userPhoto", null);
@@ -28,16 +25,11 @@ export default function AuthProvider({ children }) {
       setUserEmail(user.email);
       setUserName(user.displayName);
       setUserPhoto(user.photoURL);
-      navigate("/home", { state: { title: "Lfinance" } });
-      navigate("/home", { state: { title: "Lfinance" } });
     });
-    navigate("/home", { state: { title: "Lfinance" } });
-    navigate("/home", { state: { title: "Lfinance" } });
   }
 
   //================================================================
   async function signOut() {
-    navigate("/login");
     const auth = getAuth(app);
     signOut(auth);
     setUserName(null);

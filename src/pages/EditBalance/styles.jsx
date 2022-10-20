@@ -20,7 +20,6 @@ export const AccContainer = styled.div`
   padding-bottom: 10px;
   margin-left: -10px;
   p {
-    //border: 1px solid white;
     overflow: hidden;
     font-size: 17px;
     width: 25vw;
