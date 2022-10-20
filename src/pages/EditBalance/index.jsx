@@ -4,7 +4,7 @@ import {
   Buttons,
 } from "../../services/styling/styles";
 
-import { EditBalanceContainer } from "./styles";
+import { EditBalanceContainer, AccContainer } from "./styles";
 import Header from "../../components/Header";
 
 import { useAuth } from "../../contexts/auth";
@@ -20,10 +20,13 @@ import { onSnapshot, doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { moneyMask } from "../../components/Functions/moneyMask";
 
+import { TailSpin } from "react-loading-icons";
+
 export default function EditBalance() {
   const auth = useAuth();
 
   const [accounts, setAccounts] = useState([]);
+  const [loadControl, setLoadControl] = useState(false);
 
   const [accValue, setAccValue] = useState("");
   const [accInputValue, setAccInputValue] = useState("");
@@ -33,7 +36,9 @@ export default function EditBalance() {
   const userRef = doc(db, `users/${auth.userEmail}`);
 
   useEffect(() => {
-    getAccounts();
+    if (loadControl === false) {
+      getAccounts();
+    }
   });
 
   async function getAccounts() {
@@ -54,6 +59,7 @@ export default function EditBalance() {
         return true;
       });
       setAccounts(tempAcc);
+      setLoadControl(true);
     });
   }
 
@@ -109,6 +115,11 @@ export default function EditBalance() {
       <BackGroundContainer>
         <MasterContainer>
           <EditBalanceContainer>
+            {loadControl === false ? (
+              <TailSpin heigth="100px" style={{ margin: "20px 30vh" }} />
+            ) : (
+              <></>
+            )}
             <Modal open={open} onClose={handleClose}>
               <Box sx={style}>
                 {isNewAcc ? (
@@ -125,7 +136,7 @@ export default function EditBalance() {
                       inputMode="numeric"
                       type="text"
                       maxLength="10"
-                      value={accValue}
+                      value={accInputValue}
                       onChange={(e) => {
                         setAccInputValue(moneyMask(e.target.value));
                         setAccValue(
@@ -147,7 +158,7 @@ export default function EditBalance() {
                       inputMode="numeric"
                       type="text"
                       maxLength="10"
-                      value={accValue}
+                      value={accInputValue}
                       onChange={(e) => {
                         setAccInputValue(moneyMask(e.target.value));
                         setAccValue(
@@ -167,28 +178,30 @@ export default function EditBalance() {
             </Modal>
 
             {accounts.map((item, index) => (
-              <div key={index} className="accContainer">
-                <p>{item.name}</p>
-                <p className="itemValue">{item.value}</p>
-                <BsPencilSquare
-                  size={25}
-                  style={{ marginLeft: 10 }}
-                  onClick={() => {
-                    handleChange(item.name);
-                  }}
-                />
-                {item.name === "dinheiro" ? (
-                  <></>
-                ) : (
-                  <BsXSquareFill
-                    size={22}
-                    color="#ff8888"
+              <>
+                <AccContainer key={index}>
+                  <p>{item.name}</p>
+                  <p className="itemValue">{item.value}</p>
+                  <BsPencilSquare
+                    size={25}
+                    style={{ marginLeft: 10 }}
                     onClick={() => {
-                      deleteAcc(item.name);
+                      handleChange(item.name);
                     }}
                   />
-                )}
-              </div>
+                  {item.name === "dinheiro" ? (
+                    <></>
+                  ) : (
+                    <BsXSquareFill
+                      size={22}
+                      color="#ff8888"
+                      onClick={() => {
+                        deleteAcc(item.name);
+                      }}
+                    />
+                  )}
+                </AccContainer>
+              </>
             ))}
             <Buttons>
               {" "}

@@ -10,6 +10,8 @@ import { BackGroundContainer } from "../../services/styling/styles";
 
 import { useAuth } from "../../contexts/auth";
 
+import { TailSpin } from "react-loading-icons";
+
 export default function Home() {
   const auth = useAuth();
 
@@ -21,13 +23,24 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <BackGroundContainer>
-        <Patrimony />
-        <Summary />
-        <HomeButtons />
-        <LastMovements />
-      </BackGroundContainer>
+      {auth.snapControl === false ? (
+        <>
+          <Header />
+          <BackGroundContainer>
+            <TailSpin heigth="100px" style={{ margin: "30vh" }} />
+          </BackGroundContainer>
+        </>
+      ) : (
+        <>
+          <Header />
+          <BackGroundContainer>
+            <Patrimony />
+            <Summary />
+            <HomeButtons />
+            <LastMovements />
+          </BackGroundContainer>
+        </>
+      )}
     </>
   );
 }
