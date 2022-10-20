@@ -15,6 +15,7 @@ export const BackGroundContainer = styled.div`
 `;
 
 export const MasterContainer = styled.div`
+  position: relative;
   text-align: center;
   background-color: #232c33;
   margin: 20px 40px;
@@ -38,6 +39,14 @@ export const MasterContainer = styled.div`
   }
   .expense {
     color: #ff8888;
+  }
+  .euroSign {
+    position: absolute;
+    top: 32.9%;
+    left: 62%;
+    font-size: 16px;
+    color: black;
+    font-weight: 200;
   }
   input {
     text-align: center;

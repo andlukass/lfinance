@@ -20,7 +20,7 @@ export default function MovementsList(props) {
               isExpense: item.isExpense,
             }}
           >
-            {item.type} {item.value.toFixed(2).replace(".", ",")} € {item.prep}{" "}
+            {item.type} {item.value.toString().replace(".", ",")} € {item.prep}{" "}
             {item.desc}, dia {item.date.getDate()}
           </Link>
         ))}

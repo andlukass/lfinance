@@ -20,6 +20,7 @@ import { AuthContext } from "../../contexts/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
+import { moneyMask } from "../../components/Functions/moneyMask";
 
 export default function Movements() {
   const navigate = useNavigate();
@@ -32,6 +33,9 @@ export default function Movements() {
     location.state.id ? location.state.desc : ""
   );
   const [movementValue, setMovementValue] = useState(
+    location.state.id ? location.state.value : ""
+  );
+  const [movementInputValue, setMovementInputValue] = useState(
     location.state.id ? location.state.value : ""
   );
   const [accounts, setAccounts] = useState([]);
@@ -124,7 +128,7 @@ export default function Movements() {
             });
           });
           alert("movimentação alterada!  ;)");
-          navigate("/Home");
+          navigate("/home");
         } else {
           //     CASO SEJA CONTAS DIFERENTES
           await getDoc(userRef).then((snapshot) => {
@@ -144,7 +148,7 @@ export default function Movements() {
             });
           });
           alert("movimentação alterada!  ;)");
-          navigate("/Home");
+          navigate("/home");
         }
       } else {
         // ELSE FAZ FUNÇÃO BTN ADICIONAR
@@ -160,7 +164,7 @@ export default function Movements() {
           });
         });
         alert("movimentação adicionada!  ;)");
-        navigate("/Home");
+        navigate("/home");
       }
     }
   }
@@ -178,8 +182,9 @@ export default function Movements() {
       });
     });
     alert("movimentação apagada!");
-    navigate("/Home");
+    navigate("/home");
   }
+
   return (
     <>
       <Header />
@@ -188,6 +193,7 @@ export default function Movements() {
           <h2>Descrição</h2>
           <input
             type="text"
+            maxLength="25"
             placeholder={movementDesc ? movementDesc : "ex.: Mercado"}
             value={movementDesc}
             onChange={(e) => {
@@ -196,11 +202,20 @@ export default function Movements() {
           />
           <p>Valor</p>
           <input
-            type="number"
-            placeholder={movementValue ? movementValue : "ex.: 8,14 €"}
-            value={movementValue}
+            inputMode="numeric"
+            type="text"
+            maxLength="10"
+            placeholder={
+              movementInputValue ? movementInputValue : "ex.: 8,14 €"
+            }
+            value={movementInputValue}
             onChange={(e) => {
-              setMovementValue(e.target.value);
+              setMovementInputValue(moneyMask(e.target.value));
+              setMovementValue(
+                parseFloat(
+                  moneyMask(e.target.value).replace(".", "").replace(",", ".")
+                )
+              );
             }}
           />
           <p>Em qual conta</p>

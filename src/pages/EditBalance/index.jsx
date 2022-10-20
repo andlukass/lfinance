@@ -18,6 +18,7 @@ import Box from "@mui/material/Box";
 
 import { onSnapshot, doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import { moneyMask } from "../../components/Functions/moneyMask";
 
 export default function EditBalance() {
   const auth = useAuth();
@@ -25,6 +26,7 @@ export default function EditBalance() {
   const [accounts, setAccounts] = useState([]);
 
   const [accValue, setAccValue] = useState("");
+  const [accInputValue, setAccInputValue] = useState("");
   const [accName, setAccName] = useState("");
   const [isNewAcc, setIsNewAcc] = useState(false);
 
@@ -63,8 +65,6 @@ export default function EditBalance() {
     }
     await updateDoc(userRef, { [accName]: parseFloat(accValue) });
     handleClose();
-    setAccValue("");
-    setAccName("");
   }
 
   async function deleteAcc(name) {
@@ -116,14 +116,26 @@ export default function EditBalance() {
                     <p>Nome da conta: </p>
                     <input
                       type="text"
+                      maxLength="25"
                       value={accName}
                       onChange={(e) => setAccName(e.target.value)}
                     />
                     <p>Saldo da conta: </p>
                     <input
-                      type="number"
+                      inputMode="numeric"
+                      type="text"
+                      maxLength="10"
                       value={accValue}
-                      onChange={(e) => setAccValue(e.target.value)}
+                      onChange={(e) => {
+                        setAccInputValue(moneyMask(e.target.value));
+                        setAccValue(
+                          parseFloat(
+                            moneyMask(e.target.value)
+                              .replace(".", "")
+                              .replace(",", ".")
+                          )
+                        );
+                      }}
                     />
                     <p></p>
                     <BsCheckLg onClick={updateAcc} />
@@ -132,9 +144,20 @@ export default function EditBalance() {
                   <div>
                     <p>Mudar o saldo de {accName} para: </p>
                     <input
-                      type="number"
+                      inputMode="numeric"
+                      type="text"
+                      maxLength="10"
                       value={accValue}
-                      onChange={(e) => setAccValue(e.target.value)}
+                      onChange={(e) => {
+                        setAccInputValue(moneyMask(e.target.value));
+                        setAccValue(
+                          parseFloat(
+                            moneyMask(e.target.value)
+                              .replace(".", "")
+                              .replace(",", ".")
+                          )
+                        );
+                      }}
                     />
                     <p></p>
                     <BsCheckLg onClick={updateAcc} />

@@ -34,7 +34,7 @@ export default function AuthProvider({ children }) {
 
   //================================================================
   async function signOut() {
-    navigate("/");
+    navigate("/login");
     const auth = getAuth(app);
     signOut(auth);
     setUserName(null);
