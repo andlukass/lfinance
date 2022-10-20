@@ -39,6 +39,7 @@ export default function EditBalance() {
     if (loadControl === false) {
       getAccounts();
     }
+    accNameControl();
   });
 
   async function getAccounts() {
@@ -63,19 +64,39 @@ export default function EditBalance() {
     });
   }
 
-  async function updateAcc() {
-    if (isNewAcc) {
-      alert("conta adicionada!");
-    } else {
-      alert("saldo alerado!");
+  const accNameControl = () => {
+    for (const element of accounts) {
+      if (element.name === accName) {
+        return true;
+      } else {
+        return false;
+      }
     }
-    await updateDoc(userRef, { [accName]: parseFloat(accValue) });
-    handleClose();
+  };
+
+  async function updateAcc() {
+    if (accName === "") {
+      alert("preencha o nome :S");
+    } else if (accNameControl) {
+      alert("você já tem uma conta com esse nome :S");
+    } else if (accValue === "") {
+      alert("preencha o valor :S");
+    } else {
+      if (isNewAcc) {
+        alert("conta adicionada!");
+      } else {
+        alert("saldo alerado!");
+      }
+      await updateDoc(userRef, { [accName]: parseFloat(accValue) });
+      handleClose();
+    }
   }
 
   async function deleteAcc(name) {
-    alert("conta apagada!");
-    await updateDoc(userRef, { [name]: deleteField() });
+    if (window.confirm("apagar essa conta?") === true) {
+      alert("conta apagada!");
+      await updateDoc(userRef, { [name]: deleteField() });
+    }
   }
 
   function handleChange(name) {
@@ -94,6 +115,7 @@ export default function EditBalance() {
     setOpen(false);
     setIsNewAcc(false);
     setAccValue("");
+    setAccInputValue("");
     setAccName("");
   };
 
