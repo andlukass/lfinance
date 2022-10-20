@@ -23,13 +23,16 @@ export default function AuthProvider({ children }) {
   //================================================================
   async function signIn() {
     const auth = getAuth(app);
-    signInWithPopup(auth, provider).then((result) => {
+    await signInWithPopup(auth, provider).then((result) => {
       const user = result.user;
       setUserEmail(user.email);
       setUserName(user.displayName);
       setUserPhoto(user.photoURL);
-      navigate("home", { state: { title: "Lfinance" } });
+      navigate("/home", { state: { title: "Lfinance" } });
+      navigate("/home", { state: { title: "Lfinance" } });
     });
+    navigate("/home", { state: { title: "Lfinance" } });
+    navigate("/home", { state: { title: "Lfinance" } });
   }
 
   //================================================================
@@ -40,6 +43,7 @@ export default function AuthProvider({ children }) {
     setUserName(null);
     setUserEmail(null);
     setUserPhoto(null);
+    setSnapControl(false);
   }
 
   //================================================================

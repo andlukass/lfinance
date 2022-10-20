@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const EditBalanceContainer = styled.div`
-  overflow: scroll;
+  overflow: auto;
   p {
     margin: 0;
     width: 30%;
@@ -9,22 +9,37 @@ export const EditBalanceContainer = styled.div`
   input {
     font-size: 16px;
   }
-  .itemValue {
-    margin: 0;
-    width: 30%;
-    border-bottom: 1px solid white;
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-    opacity: 0.7;
-  }
 `;
+
 export const AccContainer = styled.div`
-  flex-direction: row;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  justify-content: space-around;
   height: 50px;
   margin-bottom: 10px;
   padding-bottom: 10px;
+  margin-left: -10px;
+  p {
+    //border: 1px solid white;
+    overflow: hidden;
+    font-size: 17px;
+    width: 25vw;
+    max-width: 150px;
+  }
+  .itemValue {
+    border-bottom: 1px solid white;
+    font-size: 15px;
+    font-weight: 500;
+    opacity: 0.7;
+    padding-bottom: 5px;
+  }
+`;
+
+export const IconsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25vw;
+  max-width: 150px;
+  justify-content: space-around;
+  height: 50px;
 `;

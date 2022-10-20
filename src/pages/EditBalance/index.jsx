@@ -4,7 +4,7 @@ import {
   Buttons,
 } from "../../services/styling/styles";
 
-import { EditBalanceContainer, AccContainer } from "./styles";
+import { EditBalanceContainer, AccContainer, IconsContainer } from "./styles";
 import Header from "../../components/Header";
 
 import { useAuth } from "../../contexts/auth";
@@ -116,7 +116,7 @@ export default function EditBalance() {
         <MasterContainer>
           <EditBalanceContainer>
             {loadControl === false ? (
-              <TailSpin heigth="100px" style={{ margin: "20px 30vh" }} />
+              <TailSpin heigth="100px" style={{ margin: "20px 30%" }} />
             ) : (
               <></>
             )}
@@ -182,24 +182,26 @@ export default function EditBalance() {
                 <AccContainer key={index}>
                   <p>{item.name}</p>
                   <p className="itemValue">{item.value}</p>
-                  <BsPencilSquare
-                    size={25}
-                    style={{ marginLeft: 10 }}
-                    onClick={() => {
-                      handleChange(item.name);
-                    }}
-                  />
-                  {item.name === "dinheiro" ? (
-                    <></>
-                  ) : (
-                    <BsXSquareFill
-                      size={22}
-                      color="#ff8888"
+                  <IconsContainer>
+                    <BsPencilSquare
+                      size={25}
+                      style={{ marginLeft: 10 }}
                       onClick={() => {
-                        deleteAcc(item.name);
+                        handleChange(item.name);
                       }}
                     />
-                  )}
+                    {item.name === "dinheiro" ? (
+                      <></>
+                    ) : (
+                      <BsXSquareFill
+                        size={22}
+                        color="#ff8888"
+                        onClick={() => {
+                          deleteAcc(item.name);
+                        }}
+                      />
+                    )}
+                  </IconsContainer>
                 </AccContainer>
               </>
             ))}
