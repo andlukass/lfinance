@@ -26,8 +26,10 @@ export default function MonthMovements() {
     if (auth.snapControl === false) {
       auth.getMovements();
     }
+
     movementsByMonth();
     setDate(new Date(year, month, 0));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [month, auth.snapControl]);
 
   const addMonth = () => {

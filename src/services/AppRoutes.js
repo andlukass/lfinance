@@ -7,6 +7,7 @@ import EditBalance from "../pages/EditBalance";
 import MonthMovements from "../pages/MonthMovements";
 
 import { RequireAuth } from "./requireAuth";
+import GitHubRedirect from "../components/GitHubRedirect";
 
 export default function AppRoutes() {
   return (
@@ -55,6 +56,7 @@ export default function AppRoutes() {
                 </RequireAuth>
               }
             />
+            <Route path="/git-hub" element={<GitHubRedirect />} />
           </>
         </Routes>
       </AuthProvider>
