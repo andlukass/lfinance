@@ -26,7 +26,7 @@ export const BackIcon = styled.div`
 `;
 
 export const ProfilePic = styled.img`
-  margin: 10px;
+  margin: 15px;
   border-radius: 40px;
   width: 50px;
   height: 50px;

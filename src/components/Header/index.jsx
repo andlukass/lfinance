@@ -29,14 +29,18 @@ export default function Header() {
             <div>
               <p>{pageTitle}</p>
             </div>
-            <div>
-              <ProfilePic
-                onClick={signOut}
-                src={userPhoto}
-                alt=""
-                width="50"
-                height="50"
-              />
+            <div onClick={signOut}>
+              <ProfilePic src={userPhoto} alt="" width="50" height="50" />
+              {location.pathname === "/home" ? (
+                <span
+                  style={{ display: "flex", marginTop: -63, marginLeft: 80 }}
+                >
+                  log <br />
+                  out
+                </span>
+              ) : (
+                <></>
+              )}
             </div>
           </>
         ) : (
