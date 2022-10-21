@@ -39,7 +39,6 @@ export default function EditBalance() {
     if (loadControl === false) {
       getAccounts();
     }
-    accNameControl();
   });
 
   async function getAccounts() {
@@ -64,20 +63,10 @@ export default function EditBalance() {
     });
   }
 
-  const accNameControl = () => {
-    for (const element of accounts) {
-      if (element.name === accName) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  };
-
   async function updateAcc() {
     if (accName === "") {
       alert("preencha o nome :S");
-    } else if (accNameControl) {
+    } else if (accounts.map((e) => e.name).indexOf(accName) !== -1) {
       alert("você já tem uma conta com esse nome :S");
     } else if (accValue === "") {
       alert("preencha o valor :S");
@@ -151,7 +140,9 @@ export default function EditBalance() {
                       type="text"
                       maxLength="25"
                       value={accName}
-                      onChange={(e) => setAccName(e.target.value)}
+                      onChange={(e) => {
+                        setAccName(e.target.value);
+                      }}
                     />
                     <p>Saldo da conta: </p>
                     <input
