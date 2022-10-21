@@ -39,7 +39,6 @@ export default function EditBalance() {
     if (loadControl === false) {
       getAccounts();
     }
-    console.log(auth.userEmail);
   });
 
   async function getAccounts() {

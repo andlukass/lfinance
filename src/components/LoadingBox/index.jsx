@@ -9,6 +9,7 @@ export default function LoadingBox(props) {
     for (let i = 0; i < count; i++) {
       tempComponent.push(
         <LoadingBoxStyle
+          key={i}
           style={{
             width: `${customWidth}vw`,
             backgroundColor: `${customColor}`,

@@ -10,14 +10,13 @@ import { BackGroundContainer } from "../../services/styling/styles";
 
 import { useAuth } from "../../contexts/auth";
 
-import { TailSpin } from "react-loading-icons";
-
 export default function Home() {
   const auth = useAuth();
 
   useEffect(() => {
     if (auth.snapControl === false) {
       auth.getMovements();
+      auth.getAccounts();
     }
   });
 

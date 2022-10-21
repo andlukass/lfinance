@@ -4,7 +4,13 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { getAuth, signInWithPopup } from "firebase/auth";
 import { provider, app, db } from "../services/firebase";
 
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  getDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 export const AuthContext = createContext({});
 
@@ -13,8 +19,10 @@ export default function AuthProvider({ children }) {
   const [userEmail, setUserEmail] = useLocalStorage("userEmail", null);
   const [userPhoto, setUserPhoto] = useLocalStorage("userPhoto", null);
 
+  const userRef = doc(db, "users", `${userEmail}`);
   const movRef = collection(db, `users/${userEmail}/movements`);
   const [movements, setMovements] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const [snapControl, setSnapControl] = useState(false);
 
   //================================================================
@@ -65,16 +73,31 @@ export default function AuthProvider({ children }) {
 
   //================================================================
 
+  async function getAccounts() {
+    getDoc(userRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = Object.keys(snapshot.data());
+        setAccounts(data);
+      } else {
+        setDoc(userRef, { dinheiro: 0 });
+      }
+    });
+  }
+
+  //================================================================
+
   return (
     <AuthContext.Provider
       value={{
         signIn,
         signOut,
         getMovements,
+        getAccounts,
         userEmail,
         userName,
         userPhoto,
         movements,
+        accounts,
         snapControl,
       }}
     >

@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import {
   MasterContainer,
@@ -16,17 +16,16 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
-import { AuthContext } from "../../contexts/auth";
+import { useAuth } from "../../contexts/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import { moneyMask } from "../../components/Functions/moneyMask";
 
 export default function Movements() {
+  const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { userEmail } = useContext(AuthContext);
 
   //valores padrão do form
   const [movementDesc, setMovementDesc] = useState(
@@ -38,7 +37,6 @@ export default function Movements() {
   const [movementInputValue, setMovementInputValue] = useState(
     location.state.id ? location.state.value : ""
   );
-  const [accounts, setAccounts] = useState([]);
   const [account, setAccount] = useState(
     location.state.id ? location.state.account : "dinheiro"
   );
@@ -51,18 +49,20 @@ export default function Movements() {
   const [btnCtrl, setBtnCtrl] = useState(false);
   const isExpense = location.state.isExpense;
   //doc a ser buscado no DB, para popular menu select
-  const userRef = doc(db, `users/${userEmail}`);
+  const userRef = doc(db, `users/${auth.userEmail}`);
   const docRef = doc(
     db,
     "users",
-    `${userEmail}`,
+    `${auth.userEmail}`,
     "movements",
     `${location.state.id}`
   );
 
   useEffect(() => {
-    getAccounts();
     dateFormat();
+    if (auth.movements.length === 0) {
+      auth.getAccounts();
+    }
   });
 
   function dateFormat() {
@@ -71,13 +71,6 @@ export default function Movements() {
     let anoHoje = date.getFullYear();
     let hoje = anoHoje + "-" + mesHoje + "-" + diaHoje;
     setDateForm(hoje);
-  }
-
-  async function getAccounts() {
-    getDoc(userRef).then((snapshot) => {
-      const data = Object.keys(snapshot.data());
-      setAccounts(data);
-    });
   }
 
   function handleDate(e) {
@@ -153,7 +146,10 @@ export default function Movements() {
       } else {
         // ELSE FAZ FUNÇÃO BTN ADICIONAR
         setBtnCtrl(true);
-        await addDoc(collection(db, `users/${userEmail}/movements`), docData);
+        await addDoc(
+          collection(db, `users/${auth.userEmail}/movements`),
+          docData
+        );
         await getDoc(userRef).then((snapshot) => {
           const snap = snapshot.get(account);
           const calc = isExpense
@@ -225,7 +221,7 @@ export default function Movements() {
               setAccount(e.target.value);
             }}
           >
-            {accounts.map((item, index) => (
+            {auth.accounts.map((item, index) => (
               <option key={index} value={item}>
                 {item}
               </option>
