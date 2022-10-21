@@ -8,7 +8,8 @@ import {
   MonthTotalExpense,
   MonthTotalReceipt,
 } from "../../../../../../components/Functions/MonthTotal";
-import LoadingBox from "../../../../../../components/LoadingBox";
+
+import { Skeleton } from "@mui/material";
 
 export default function SummaryResume(props) {
   const auth = useAuth();
@@ -29,7 +30,12 @@ export default function SummaryResume(props) {
           <p className="expense">
             Esse mês gastou <br />{" "}
             {auth.snapControl === false ? (
-              <LoadingBox count={1} customWidth={20} customColor={"#ff8888"} />
+              <Skeleton
+                sx={{ bgcolor: "#ff8888" }}
+                variant="rounded"
+                width={"14vh"}
+                height={15}
+              />
             ) : (
               <>
                 <MonthTotalExpense date={date} movements={auth.movements} /> €{" "}

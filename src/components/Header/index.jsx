@@ -31,7 +31,7 @@ export default function Header() {
             </div>
             <div onClick={signOut}>
               <ProfilePic src={userPhoto} alt="" width="50" height="50" />
-              {location.pathname === "/home" ? (
+              {location.pathname === "/home" || location.pathname === "/" ? (
                 <span
                   style={{ display: "flex", marginTop: -63, marginLeft: 80 }}
                 >

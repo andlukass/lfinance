@@ -6,7 +6,7 @@ import { useAuth } from "../../../../contexts/auth";
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
-import LoadingBox from "../../../../components/LoadingBox";
+import { Skeleton } from "@mui/material";
 
 export default function Patrimony() {
   const auth = useAuth();
@@ -37,14 +37,18 @@ export default function Patrimony() {
 
   return (
     <ContainerTop onClick={() => setShowValue(!showValue)}>
-      {/* <LoadingBox count={1} customWidth={5} customColor={"#414444"} /> */}
-
       {showValue ? (
         <>
           <p>
             Olá {auth.userName}, você tem <br />{" "}
             {auth.snapControl === false ? (
-              <LoadingBox count={1} customWidth={10} customColor={"#414444"} />
+              <Skeleton
+                style={{ marginTop: 2, marginBottom: -17 }}
+                sx={{ bgcolor: "#c9c7c7" }}
+                variant="rounded"
+                width={"3vh"}
+                height={15}
+              />
             ) : (
               <span>{accBalance} </span>
             )}

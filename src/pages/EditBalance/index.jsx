@@ -20,7 +20,7 @@ import { onSnapshot, doc, updateDoc, deleteField } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { moneyMask } from "../../components/Functions/moneyMask";
 
-import { TailSpin } from "react-loading-icons";
+import { CircularProgress } from "@mui/material";
 
 export default function EditBalance() {
   const auth = useAuth();
@@ -128,7 +128,9 @@ export default function EditBalance() {
         <MasterContainer>
           <EditBalanceContainer>
             {loadControl === false ? (
-              <TailSpin heigth="100px" style={{ margin: "20px 30%" }} />
+              <div style={{ margin: 40 }}>
+                <CircularProgress color="inherit" />
+              </div>
             ) : (
               <></>
             )}
