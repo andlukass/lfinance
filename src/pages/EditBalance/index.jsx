@@ -39,6 +39,7 @@ export default function EditBalance() {
     if (loadControl === false) {
       getAccounts();
     }
+    console.log(auth.userEmail);
   });
 
   async function getAccounts() {
@@ -66,12 +67,13 @@ export default function EditBalance() {
   async function updateAcc() {
     if (accName === "") {
       alert("preencha o nome :S");
-    } else if (accounts.map((e) => e.name).indexOf(accName) !== -1) {
-      alert("você já tem uma conta com esse nome :S");
     } else if (accValue === "") {
       alert("preencha o valor :S");
     } else {
-      if (isNewAcc) {
+      if (accounts.map((e) => e.name).indexOf(accName) !== -1 && isNewAcc) {
+        alert("você já tem uma conta com esse nome :S");
+        return;
+      } else if (isNewAcc) {
         alert("conta adicionada!");
       } else {
         alert("saldo alerado!");
@@ -141,6 +143,9 @@ export default function EditBalance() {
                       maxLength="25"
                       value={accName}
                       onChange={(e) => {
+                        console.log(
+                          accounts.map((e) => e.name).indexOf(accName) !== -1
+                        );
                         setAccName(e.target.value);
                       }}
                     />
