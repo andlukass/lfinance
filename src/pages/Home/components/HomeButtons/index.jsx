@@ -3,12 +3,12 @@ import {
   ButtonContainer,
   MasterContainerButtons,
 } from "./styles";
+
 import {
   AiOutlinePlus,
   AiOutlineMinus,
   AiOutlineWallet,
   AiOutlineSwap,
-  AiOutlineStock,
   AiOutlineSetting,
 } from "react-icons/ai";
 

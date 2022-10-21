@@ -6,6 +6,7 @@ import { useAuth } from "../../../../contexts/auth";
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
+import LoadingBox from "../../../../components/LoadingBox";
 
 export default function Patrimony() {
   const auth = useAuth();
@@ -36,10 +37,18 @@ export default function Patrimony() {
 
   return (
     <ContainerTop onClick={() => setShowValue(!showValue)}>
+      {/* <LoadingBox count={1} customWidth={5} customColor={"#414444"} /> */}
+
       {showValue ? (
         <>
           <p>
-            Olá {auth.userName}, você tem <br /> {accBalance} € em suas contas
+            Olá {auth.userName}, você tem <br />{" "}
+            {auth.snapControl === false ? (
+              <LoadingBox count={1} customWidth={10} customColor={"#414444"} />
+            ) : (
+              <span>{accBalance} </span>
+            )}
+            € em suas contas
           </p>
           <AiOutlineEyeInvisible size={30} />
         </>

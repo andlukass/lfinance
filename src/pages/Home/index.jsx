@@ -23,24 +23,13 @@ export default function Home() {
 
   return (
     <>
-      {auth.snapControl === false ? (
-        <>
-          <Header />
-          <BackGroundContainer>
-            <TailSpin heigth="100px" style={{ margin: "30vh" }} />
-          </BackGroundContainer>
-        </>
-      ) : (
-        <>
-          <Header />
-          <BackGroundContainer>
-            <Patrimony />
-            <Summary />
-            <HomeButtons />
-            <LastMovements />
-          </BackGroundContainer>
-        </>
-      )}
+      <Header />
+      <BackGroundContainer>
+        <Patrimony />
+        <Summary />
+        <HomeButtons />
+        <LastMovements />
+      </BackGroundContainer>
     </>
   );
 }

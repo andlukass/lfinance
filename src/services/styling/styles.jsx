@@ -17,6 +17,9 @@ export const BackGroundContainer = styled.div`
 export const MasterContainer = styled.div`
   position: relative;
   text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background-color: #232c33;
   margin: 20px 40px;
   padding: 20px 30px;
@@ -91,6 +94,7 @@ export const ContainerTop = styled(MasterContainer)`
     margin: 10px;
   }
 `;
+
 export const DownContainer = styled(ContainerTop)`
   justify-content: space-around;
   border-bottom-left-radius: 40px;

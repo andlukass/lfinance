@@ -2,12 +2,13 @@ import { useState } from "react";
 
 import { FaRetweet } from "react-icons/fa";
 
-import { useAuth } from "../../../../../contexts/auth";
+import { useAuth } from "../../../../../../contexts/auth";
 
 import {
   MonthTotalExpense,
   MonthTotalReceipt,
-} from "../../../../../components/Functions/MonthTotal";
+} from "../../../../../../components/Functions/MonthTotal";
+import LoadingBox from "../../../../../../components/LoadingBox";
 
 export default function SummaryResume(props) {
   const auth = useAuth();
@@ -27,7 +28,13 @@ export default function SummaryResume(props) {
         >
           <p className="expense">
             Esse mês gastou <br />{" "}
-            <MonthTotalExpense date={date} movements={auth.movements} /> €
+            {auth.snapControl === false ? (
+              <LoadingBox count={1} customWidth={20} customColor={"#ff8888"} />
+            ) : (
+              <>
+                <MonthTotalExpense date={date} movements={auth.movements} /> €{" "}
+              </>
+            )}
           </p>
           <FaRetweet size={20} color="#ff8888" />
         </div>

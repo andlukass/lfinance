@@ -3,7 +3,7 @@ import TranslateDate from "../../../../components/Functions/TranslateDate";
 
 import { Link } from "react-router-dom";
 
-import SummaryResume from "./components";
+import SummaryResume from "./components/SummaryResume";
 
 export default function Summary() {
   return (

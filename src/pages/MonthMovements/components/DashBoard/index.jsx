@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useAuth } from "../../../../contexts/auth";
 
-import SummaryResume from "../../../Home/components/Summary/components";
+import SummaryResume from "../../../Home/components/Summary/components/SummaryResume";
 import { MonthTotalBalance } from "../../../../components/Functions/MonthTotal";
 import {
   DashBoardContainer,
