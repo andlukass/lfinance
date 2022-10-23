@@ -5,8 +5,6 @@ import {
   MasterContainer,
 } from "../../services/styling/styles";
 
-import Header from "../../components/Header";
-
 import { useAuth } from "../../contexts/auth";
 
 import MovementsList from "../../components/MovementsList";
@@ -60,7 +58,6 @@ export default function MonthMovements() {
 
   return (
     <>
-      <Header />
       <BackGroundContainer>
         <MasterContainer>
           <DateControl

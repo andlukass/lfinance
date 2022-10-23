@@ -4,7 +4,7 @@ export const BackGroundContainer = styled.div`
   overflow: auto;
   width: 100vw;
   height: 89.9vh;
-  background-color: #192025;
+  background-color: ${(props) => props.theme.colors.darkest};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,14 +20,14 @@ export const MasterContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: #232c33;
+  background-color: ${(props) => props.theme.colors.primary};
   margin: 20px 40px;
   padding: 20px 30px;
   width: 70vw;
   max-width: 550px;
   padding-bottom: 30px;
   border-radius: 10px;
-  color: #c9c7c7;
+  color: ${(props) => props.theme.colors.primaryText};
   font-size: 12px;
   font-weight: 700;
   a {
@@ -38,25 +38,22 @@ export const MasterContainer = styled.div`
     padding: 10px;
   }
   .receipt {
-    color: #c5f4b0;
+    color: ${(props) => props.theme.colors.receipt};
   }
   .expense {
-    color: #ff8888;
+    color: ${(props) => props.theme.colors.expense};
   }
-  .euroSign {
-    position: absolute;
-    top: 32.9%;
-    left: 62%;
-    font-size: 16px;
-    color: black;
-    font-weight: 200;
+  .textColor {
+    color: ${(props) => props.theme.colors.primaryText};
   }
   input {
+    margin: 15px;
     text-align: center;
     height: 30px;
     width: 60%;
   }
   select {
+    margin: 15px;
     text-align: center;
     height: 35px;
     width: 63%;
@@ -66,23 +63,22 @@ export const MasterContainer = styled.div`
 export const Buttons = styled.div`
   button {
     margin-top: 20px;
-    color: white;
+    color: ${(props) => props.theme.colors.secundaryText};
     font-weight: 1000;
     border: 0px;
     border-radius: 10px;
     width: 30vh;
   }
   .addBtn {
-    background-color: #75b7f5;
+    background-color: ${(props) => props.theme.colors.secundary};
   }
   .delBtn {
-    background-color: #ff8888;
+    background-color: ${(props) => props.theme.colors.expense};
   }
 `;
 
 export const ContainerTop = styled(MasterContainer)`
-  margin: 0px;
-  padding: 20px;
+  margin-top: -10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -99,7 +95,6 @@ export const DownContainer = styled(ContainerTop)`
   justify-content: space-around;
   border-bottom-left-radius: 40px;
   border-bottom-right-radius: 40px;
-  margin: 0px;
-  margin-top: -20px;
+  margin-top: -35px;
   font-size: 13px;
 `;

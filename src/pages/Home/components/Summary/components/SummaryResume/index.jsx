@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { FaRetweet } from "react-icons/fa";
 
@@ -11,8 +11,12 @@ import {
 
 import { Skeleton } from "@mui/material";
 
+import { ThemeContext } from "styled-components";
+
 export default function SummaryResume(props) {
   const auth = useAuth();
+
+  const { colors } = useContext(ThemeContext);
 
   const [showValue, setShowValue] = useState(true); //trocar de despesa para ganho
 
@@ -27,11 +31,12 @@ export default function SummaryResume(props) {
           style={{ display: "flex", alignItems: "center" }}
           onClick={() => setShowValue(!showValue)}
         >
-          <p className="expense">
+          <p style={{ color: `${colors.expense}` }}>
             Esse mês gastou <br />{" "}
             {auth.snapControl === false ? (
               <Skeleton
-                sx={{ bgcolor: "#ff8888" }}
+                style={{ marginLeft: "1vw" }}
+                sx={{ bgcolor: `${colors.expense}` }}
                 variant="rounded"
                 width={"14vh"}
                 height={15}
@@ -42,18 +47,18 @@ export default function SummaryResume(props) {
               </>
             )}
           </p>
-          <FaRetweet size={20} color="#ff8888" />
+          <FaRetweet size={20} color={colors.expense} />
         </div>
       ) : (
         <div
           style={{ display: "flex", alignItems: "center" }}
           onClick={() => setShowValue(!showValue)}
         >
-          <p className="receipt">
+          <p style={{ color: `${colors.receipt}` }}>
             Esse mês ganhou <br />
             <MonthTotalReceipt date={date} movements={auth.movements} /> €
           </p>
-          <FaRetweet size={20} color="#c5f4b0" />
+          <FaRetweet size={20} color={colors.receipt} />
         </div>
       )}
     </>

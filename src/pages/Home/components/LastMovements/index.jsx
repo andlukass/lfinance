@@ -1,11 +1,19 @@
+import { useContext } from "react";
+
 import { MasterContainer } from "../../../../services/styling/styles";
 
 import MovementsList from "../../../../components/MovementsList";
 import { useAuth } from "../../../../contexts/auth";
 import { Skeleton } from "@mui/material";
 
+import { ThemeContext } from "styled-components";
+
+import { shade } from "polished";
+
 export default function LastMovements() {
   const auth = useAuth();
+
+  const { colors } = useContext(ThemeContext);
 
   const SkeletonComponent = () => {
     let tempComponent = [];
@@ -14,9 +22,9 @@ export default function LastMovements() {
         <Skeleton
           key={i}
           style={{ marginTop: 13, marginBottom: 10 }}
-          sx={{ bgcolor: "#aba9a9" }}
+          sx={{ bgcolor: `${shade(0.4, colors.primaryText)}` }}
           variant="rounded"
-          width={"60%"}
+          width={"65%"}
           height={15}
         />
       );

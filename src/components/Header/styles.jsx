@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   width: 100vw;
-  height: 10vh;
-  background-color: #232c33;
-  color: #c9c7c7;
-  border-bottom: #c9c7c7 solid 1px;
+  height: 80px;
+  background-color: ${(props) => props.theme.colors.darkest};
+  border-bottom: ${(props) => props.theme.colors.primaryText} solid 3px;
+  color: ${(props) => props.theme.colors.secundaryText};
   p {
     text-align: center;
-    color: #c9c7c7;
+    color: ${(props) => props.theme.colors.secundaryText};
     font-size: 23px;
     font-weight: 1000;
     margin-top: 24px;

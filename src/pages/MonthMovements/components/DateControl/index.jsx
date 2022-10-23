@@ -7,7 +7,7 @@ export default function DateControl(props) {
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       <MdOutlineNavigateBefore
         size={45}
-        color="#c9c7c7"
+        className="textColor"
         onClick={() => {
           props.decMonth();
         }}
@@ -27,7 +27,7 @@ export default function DateControl(props) {
       </p>
       <MdOutlineNavigateNext
         size={45}
-        color="#c9c7c7"
+        className="textColor"
         onClick={() => {
           props.addMonth();
         }}

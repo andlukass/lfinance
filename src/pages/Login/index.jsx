@@ -1,8 +1,7 @@
-import { BackGroundContainer } from "../../services/styling/styles";
+import { BackGroundContainer, Buttons } from "../../services/styling/styles";
 
 import { useAuth } from "../../contexts/auth";
 
-import Header from "../../components/Header";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,9 +17,16 @@ export default function Login() {
 
   return (
     <>
-      <Header />
       <BackGroundContainer>
-        <button onClick={auth.signIn}>LOGAR COM GOOGLE!</button>
+        <Buttons>
+          <button
+            style={{ marginTop: "40vh" }}
+            className="addBtn"
+            onClick={auth.signInUser}
+          >
+            LOGAR COM GOOGLE!
+          </button>
+        </Buttons>
       </BackGroundContainer>
     </>
   );

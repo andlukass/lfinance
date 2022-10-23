@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import Header from "../../components/Header";
 import HomeButtons from "./components/HomeButtons";
 import LastMovements from "./components/LastMovements";
 import Patrimony from "./components/Patrimony";
@@ -22,7 +21,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <BackGroundContainer>
         <Patrimony />
         <Summary />

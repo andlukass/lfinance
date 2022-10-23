@@ -19,7 +19,6 @@ import { db } from "../../services/firebase";
 import { useAuth } from "../../contexts/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
 import { moneyMask } from "../../components/Functions/moneyMask";
 
 export default function Movements() {
@@ -183,7 +182,6 @@ export default function Movements() {
 
   return (
     <>
-      <Header />
       <BackGroundContainer>
         <MasterContainer>
           <h2>Descrição</h2>
@@ -196,7 +194,7 @@ export default function Movements() {
               setMovementDesc(e.target.value);
             }}
           />
-          <p>Valor</p>
+          <h2>Valor</h2>
           <input
             inputMode="numeric"
             type="text"
@@ -214,7 +212,7 @@ export default function Movements() {
               );
             }}
           />
-          <p>Em qual conta</p>
+          <h2>Em qual conta</h2>
           <select
             value={account}
             onChange={(e) => {
@@ -227,7 +225,7 @@ export default function Movements() {
               </option>
             ))}
           </select>
-          <p>Quando foi</p>
+          <h2>Quando foi</h2>
           <input
             type="date"
             id="start"

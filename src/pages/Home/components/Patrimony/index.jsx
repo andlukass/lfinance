@@ -1,5 +1,5 @@
 import { ContainerTop } from "../../../../services/styling/styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 import { useAuth } from "../../../../contexts/auth";
@@ -8,8 +8,12 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
 import { Skeleton } from "@mui/material";
 
+import { ThemeContext } from "styled-components";
+
 export default function Patrimony() {
   const auth = useAuth();
+
+  const { colors } = useContext(ThemeContext);
 
   const [showValue, setShowValue] = useState(false);
 
@@ -44,7 +48,7 @@ export default function Patrimony() {
             {auth.snapControl === false ? (
               <Skeleton
                 style={{ marginTop: 2, marginBottom: -17 }}
-                sx={{ bgcolor: "#c9c7c7" }}
+                sx={{ bgcolor: `${colors.primaryText}` }}
                 variant="rounded"
                 width={"3vh"}
                 height={15}
