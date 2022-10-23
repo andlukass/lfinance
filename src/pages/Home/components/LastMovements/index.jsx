@@ -1,36 +1,11 @@
-import { useContext } from "react";
-
 import { MasterContainer } from "../../../../services/styling/styles";
 
 import MovementsList from "../../../../components/MovementsList";
 import { useAuth } from "../../../../contexts/auth";
-import { Skeleton } from "@mui/material";
-
-import { ThemeContext } from "styled-components";
-
-import { shade } from "polished";
+import SkeletonComponent from "../../../../components/MultipleSkeletons";
 
 export default function LastMovements() {
   const auth = useAuth();
-
-  const { colors } = useContext(ThemeContext);
-
-  const SkeletonComponent = () => {
-    let tempComponent = [];
-    for (let i = 0; i < 5; i++) {
-      tempComponent.push(
-        <Skeleton
-          key={i}
-          style={{ marginTop: 13, marginBottom: 10 }}
-          sx={{ bgcolor: `${shade(0.4, colors.primaryText)}` }}
-          variant="rounded"
-          width={"65%"}
-          height={15}
-        />
-      );
-    }
-    return tempComponent;
-  };
 
   return (
     <>
@@ -38,7 +13,7 @@ export default function LastMovements() {
         <h2>Ultimas Movimentações</h2>
         {auth.snapControl === false ? (
           <>
-            <SkeletonComponent />
+            <SkeletonComponent count={5} size={"65%"} margin={"11px"} />
           </>
         ) : (
           <MovementsList movements={auth.movements} index={10} />

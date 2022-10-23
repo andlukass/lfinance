@@ -15,6 +15,8 @@ import {
 export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
+  const fbAuth = getAuth(app);
+
   const [userName, setUserName] = useLocalStorage("userName", null);
   const [userEmail, setUserEmail] = useLocalStorage("userEmail", null);
   const [userPhoto, setUserPhoto] = useLocalStorage("userPhoto", null);
@@ -27,18 +29,15 @@ export default function AuthProvider({ children }) {
 
   //================================================================
   async function signInUser() {
-    const fbAuth = getAuth(app);
-    await signInWithPopup(fbAuth, provider).then((result) => {
-      const user = result.user;
-      setUserEmail(user.email);
-      setUserName(user.displayName);
-      setUserPhoto(user.photoURL);
-    });
+    await signInWithPopup(fbAuth, provider);
+    const user = fbAuth.currentUser;
+    setUserEmail(user.email);
+    setUserName(user.displayName);
+    setUserPhoto(user.photoURL);
   }
 
   //================================================================
   async function signOutUser() {
-    const fbAuth = getAuth(app);
     signOut(fbAuth);
     setUserName(null);
     setUserEmail(null);
@@ -83,6 +82,8 @@ export default function AuthProvider({ children }) {
       }
     });
   }
+
+  //================================================================
 
   //================================================================
 

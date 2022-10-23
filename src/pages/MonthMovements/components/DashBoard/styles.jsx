@@ -15,7 +15,7 @@ export const BalanceContainer = styled.div`
 `;
 
 export const SummaryContainer = styled(BalanceContainer)`
-  border-left: 1px solid white;
+  border-left: 1px solid ${(props) => props.theme.colors.primaryText};
 `;
 
 export const ValueContainer = styled.div`

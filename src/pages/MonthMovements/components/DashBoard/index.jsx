@@ -10,6 +10,8 @@ import {
   SummaryContainer,
   ValueContainer,
 } from "./styles";
+import SkeletonComponent from "../../../../components/MultipleSkeletons";
+import { Skeleton } from "@mui/material";
 
 export default function DashBoard(props) {
   const auth = useAuth();
@@ -17,9 +19,12 @@ export default function DashBoard(props) {
   const [balanceStyle, setBalanceStyle] = useState();
 
   function getBalanceStyle() {
-    if (
-      MonthTotalBalance({ date: props.date, movements: auth.movements }) < 0
-    ) {
+    let total = MonthTotalBalance({
+      date: props.date,
+      movements: auth.movements,
+    });
+    total = parseFloat(total);
+    if (total < 0) {
       setBalanceStyle("expense");
     } else {
       setBalanceStyle("receipt");
@@ -38,12 +43,24 @@ export default function DashBoard(props) {
             saldo do <br />
             mês
           </p>
-          <ValueContainer>
-            <p className={balanceStyle}>
-              <MonthTotalBalance date={props.date} movements={auth.movements} />{" "}
-              €
-            </p>
-          </ValueContainer>
+          {auth.snapControl === false ? (
+            <div style={{ marginTop: 33 }}>
+              <SkeletonComponent count={3} size={"65px"} margin={"2px"} />
+            </div>
+          ) : (
+            <ValueContainer>
+              <p className={balanceStyle}>
+                saldo do <br />
+                mês
+                <br />
+                <MonthTotalBalance
+                  date={props.date}
+                  movements={auth.movements}
+                />{" "}
+                €
+              </p>
+            </ValueContainer>
+          )}
         </BalanceContainer>
         <SummaryContainer>
           <p>
