@@ -22,24 +22,24 @@ export default function HomeButtons() {
       <ButtonsContainer>
         <Link
           to="/movements"
-          state={{ isExpense: false, title: "Adicionar Receita" }}
+          state={{ isExpense: false, title: "Adicionar Ganhos" }}
         >
           <ButtonContainer>
             <p>
               Adicionar <br />
-              Receita
+              Ganhos
             </p>
             <AiOutlinePlus size={btnSize} />
           </ButtonContainer>
         </Link>
         <Link
           to="/movements"
-          state={{ isExpense: true, title: "Adicionar Despesa" }}
+          state={{ isExpense: true, title: "Adicionar Gastos" }}
         >
           <ButtonContainer>
             <p>
               Adicionar <br />
-              Despesa
+              Gastos
             </p>
             <AiOutlineMinus size={btnSize} />
           </ButtonContainer>

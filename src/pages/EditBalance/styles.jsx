@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const EditBalanceContainer = styled.div`
   overflow: auto;
+  white-space: pre-wrap;
   p {
     margin: 0;
     width: 30%;

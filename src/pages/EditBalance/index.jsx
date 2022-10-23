@@ -5,11 +5,10 @@ import {
 } from "../../services/styling/styles";
 
 import { EditBalanceContainer, AccContainer, IconsContainer } from "./styles";
-import Header from "../../components/Header";
 
 import { useAuth } from "../../contexts/auth";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { BsPencilSquare, BsCheckLg, BsXSquareFill } from "react-icons/bs";
 
@@ -22,8 +21,14 @@ import { moneyMask } from "../../components/Functions/moneyMask";
 
 import { CircularProgress } from "@mui/material";
 
+import { ThemeContext } from "styled-components";
+
 export default function EditBalance() {
   const auth = useAuth();
+
+  const userRef = doc(db, `users/${auth.userEmail}`);
+
+  const { colors } = useContext(ThemeContext);
 
   const [accounts, setAccounts] = useState([]);
   const [loadControl, setLoadControl] = useState(false);
@@ -32,8 +37,6 @@ export default function EditBalance() {
   const [accInputValue, setAccInputValue] = useState("");
   const [accName, setAccName] = useState("");
   const [isNewAcc, setIsNewAcc] = useState(false);
-
-  const userRef = doc(db, `users/${auth.userEmail}`);
 
   useEffect(() => {
     if (loadControl === false) {
@@ -123,7 +126,6 @@ export default function EditBalance() {
   };
   return (
     <>
-      <Header />
       <BackGroundContainer>
         <MasterContainer>
           <EditBalanceContainer>
@@ -199,7 +201,7 @@ export default function EditBalance() {
             {accounts.map((item, index) => (
               <div key={index}>
                 <AccContainer>
-                  <p>{item.name}</p>
+                  <p>{item.name.replace(/\s/g, "\n")}</p>
                   <p className="itemValue">{item.value}</p>
                   <IconsContainer>
                     <BsPencilSquare
@@ -214,7 +216,7 @@ export default function EditBalance() {
                     ) : (
                       <BsXSquareFill
                         size={22}
-                        color="#ff8888"
+                        color={colors.expense}
                         onClick={() => {
                           deleteAcc(item.name);
                         }}

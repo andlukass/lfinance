@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const BackGroundContainer = styled.div`
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   width: 100vw;
   height: 89.9vh;
   background-color: ${(props) => props.theme.colors.darkest};
