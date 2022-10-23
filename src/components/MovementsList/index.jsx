@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MovementsList(props) {
+  const location = useLocation();
+
   const index = props.index;
+
   return (
     <>
-      {props.movements.length === 0 ? (
+      {props.movements.length === 0 &&
+      location.pathname !== "/month-movements" ? (
         <>
           <br />
           <h2>Sem movimentações</h2>

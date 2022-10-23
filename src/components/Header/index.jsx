@@ -60,7 +60,9 @@ export default function Header(props) {
         </Menu>
       </div>
       <HeaderContent>
-        {location.pathname === "/home" || location.pathname === "/login" ? (
+        {location.pathname === "/home" ||
+        location.pathname === "/login" ||
+        location.pathname === "/" ? (
           <></>
         ) : (
           <BackIcon onClick={() => navigate(-1)}>

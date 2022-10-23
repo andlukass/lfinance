@@ -11,7 +11,6 @@ import {
   ValueContainer,
 } from "./styles";
 import SkeletonComponent from "../../../../components/MultipleSkeletons";
-import { Skeleton } from "@mui/material";
 
 export default function DashBoard(props) {
   const auth = useAuth();
