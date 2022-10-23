@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-import { getAuth, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithPopup, signOut } from "firebase/auth";
 import { provider, app, db } from "../services/firebase";
 
 import {
@@ -26,9 +26,9 @@ export default function AuthProvider({ children }) {
   const [snapControl, setSnapControl] = useState(false);
 
   //================================================================
-  async function signIn() {
-    const auth = getAuth(app);
-    await signInWithPopup(auth, provider).then((result) => {
+  async function signInUser() {
+    const fbAuth = getAuth(app);
+    await signInWithPopup(fbAuth, provider).then((result) => {
       const user = result.user;
       setUserEmail(user.email);
       setUserName(user.displayName);
@@ -37,9 +37,9 @@ export default function AuthProvider({ children }) {
   }
 
   //================================================================
-  async function signOut() {
-    const auth = getAuth(app);
-    signOut(auth);
+  async function signOutUser() {
+    const fbAuth = getAuth(app);
+    signOut(fbAuth);
     setUserName(null);
     setUserEmail(null);
     setUserPhoto(null);
@@ -89,8 +89,8 @@ export default function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        signIn,
-        signOut,
+        signInUser,
+        signOutUser,
         getMovements,
         getAccounts,
         userEmail,
