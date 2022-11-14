@@ -25,6 +25,7 @@ export default function MovementsList(props) {
                 state={{
                   id: item.id,
                   value: item.value,
+                  cor: item.Cor,
                   desc: item.desc,
                   account: item.account,
                   date: item.date,
