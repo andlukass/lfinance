@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 
 import {
   BackGroundContainer,
-  MasterContainer,
-} from "../../services/styling/styles";
+} from "../../styling/styles";
 
 import { useAuth } from "../../contexts/auth";
 
@@ -59,7 +58,7 @@ export default function MonthMovements() {
   return (
     <>
       <BackGroundContainer>
-        <MasterContainer>
+        {/* <MasterContainer> */}
           <DateControl
             actualMonth={month}
             actualYear={year}
@@ -79,7 +78,7 @@ export default function MonthMovements() {
             movements={monthMovementsList}
             index={monthMovementsList.length}
           />
-        </MasterContainer>
+        {/* </MasterContainer> */}
       </BackGroundContainer>
     </>
   );

@@ -1,32 +1,33 @@
 import { useEffect } from "react";
 
-import HomeButtons from "./components/HomeButtons";
 import LastMovements from "./components/LastMovements";
 import Patrimony from "./components/Patrimony";
 import Summary from "./components/Summary";
-
-import { BackGroundContainer } from "../../services/styling/styles";
-
 import { useAuth } from "../../contexts/auth";
+import { HomeContainer, ContentContainer } from "./styles";
 
 export default function Home() {
-  const auth = useAuth();
+	const auth = useAuth();
 
-  useEffect(() => {
-    if (auth.snapControl === false) {
-      auth.getMovements();
-      auth.getAccounts();
-    }
-  });
+	useEffect(() => {
+		if (auth.snapControl === false) {
+			auth.getMovements();
+			auth.getAccounts();
+		}
+	});
 
-  return (
-    <>
-      <BackGroundContainer>
-        <Patrimony />
-        <Summary />
-        <HomeButtons />
-        <LastMovements />
-      </BackGroundContainer>
-    </>
-  );
+	return (
+		<>
+			<HomeContainer>
+				<ContentContainer className="top">
+					<Patrimony />
+					<Summary />
+				</ContentContainer>
+				{/* <HomeButtons /> */}
+				<ContentContainer>
+					<LastMovements />
+				</ContentContainer>
+			</HomeContainer>
+		</>
+	);
 }

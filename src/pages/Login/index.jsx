@@ -1,4 +1,4 @@
-import { BackGroundContainer, Buttons } from "../../services/styling/styles";
+import { BackGroundContainer, Buttons } from "../../styling/styles";
 
 import { useAuth } from "../../contexts/auth";
 

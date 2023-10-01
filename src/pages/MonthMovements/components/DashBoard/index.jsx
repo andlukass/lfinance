@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { useAuth } from "../../../../contexts/auth";
 
-import SummaryResume from "../../../Home/components/Summary/components/SummaryResume";
+import Summary from "../../../Home/components/Summary";
 import { MonthTotalBalance } from "../../../../components/Functions/MonthTotal";
 import {
   DashBoardContainer,
@@ -66,7 +66,7 @@ export default function DashBoard(props) {
             resumo do <br /> mês
           </p>
           <ValueContainer>
-            <SummaryResume date={props.date} />
+            <Summary date={props.date} />
           </ValueContainer>
         </SummaryContainer>
       </DashBoardContainer>

@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 
 import {
-  MasterContainer,
   BackGroundContainer,
   Buttons,
-} from "../../services/styling/styles";
+} from "../../styling/styles";
 
 import {
   collection,
@@ -183,7 +182,8 @@ export default function Movements() {
   return (
     <>
       <BackGroundContainer>
-        <MasterContainer>
+        {/* <MasterContainer> */}
+		<div style={{marginTop: "150px"}}></div>
           <h2>Descrição</h2>
           <input
             type="text"
@@ -268,7 +268,7 @@ export default function Movements() {
               <></>
             )}
           </div>
-        </MasterContainer>
+        {/* </MasterContainer> */}
       </BackGroundContainer>
     </>
   );

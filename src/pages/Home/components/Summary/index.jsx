@@ -1,19 +1,20 @@
-import { DownContainer } from "../../../../services/styling/styles";
 import TranslateDate from "../../../../components/Functions/TranslateDate";
 
 import { Link } from "react-router-dom";
-
-import SummaryResume from "./components/SummaryResume";
+import { SummaryContainer } from "./styles";
+import SummaryItem from "./components/SummaryItem";
 
 export default function Summary() {
-  return (
-    <>
-      <DownContainer>
-        <Link to="/month-movements">
-          <TranslateDate />
-        </Link>
-        <SummaryResume />
-      </DownContainer>
-    </>
-  );
+
+	return (
+		<>
+				{/* <Link to="/month-movements">
+					<TranslateDate />
+				</Link> */}
+			<SummaryContainer>
+				<SummaryItem type={"receipt"}/>
+				<SummaryItem type={"expense"}/>
+			</SummaryContainer>
+		</>
+	);
 }

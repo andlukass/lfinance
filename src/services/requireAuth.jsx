@@ -2,10 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/auth";
 
 export function RequireAuth({ children }) {
-  const auth = useAuth();
+	const auth = useAuth();
 
-  if (!auth.userName) {
-    return <Navigate to="/login" />;
-  }
-  return children;
+	if (!auth.userName) {
+		return <Navigate to="/login" />;
+	}
+	return children;
 }
