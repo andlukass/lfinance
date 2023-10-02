@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-	z-index: 99;
+	z-index: 50;
 	position: fixed;
 	width: 100vw;
 	height: 80px;
 	background-color: ${(props) => props.theme.colors.primary};
 	border-bottom: ${(props) => props.theme.colors.primaryText} solid 1px;
-	color: ${(props) => props.theme.colors.secundaryText};
+	color: ${(props) => props.theme.colors.primaryText};
 	p {
 		text-align: center;
-		color: ${(props) => props.theme.colors.secundaryText};
+		color: ${(props) => props.theme.colors.primaryText};
 		font-size: 23px;
 		font-weight: 1000;
 		margin-top: 24px;

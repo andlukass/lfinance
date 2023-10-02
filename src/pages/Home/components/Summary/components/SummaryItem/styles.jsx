@@ -15,6 +15,7 @@ export const SummaryItemContainer = styled.div`
 `;
 
 export const MovementIcon = styled.div`
+	user-select: none;
 	width: 30px;
 	height: 30px;
 	border-radius: 50%;

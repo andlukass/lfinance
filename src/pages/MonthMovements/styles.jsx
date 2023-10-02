@@ -1,23 +1,15 @@
 import styled from "styled-components";
 
-export const HomeContainer = styled.div`
-	overflow: hidden;
-	padding-top: 80px;
+export const MonthMovementsContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	padding-top: 100pt;
 `;
 
 export const ContentContainer = styled.div`
-	&.top {
-		padding-top: 45px;
-		margin-top: -25px;
-		width: 85vw;
-	}
-	&.last {
-		margin-bottom: 80pt;
-	}
-	box-shadow: rgba(0, 0, 0, 0.23) 0px 6px 6px;
+box-shadow: rgba(0, 0, 0, 0.23) 0px 6px 6px;
 	border-radius: 15px;
 	display: flex;
 	flex-direction: column;

@@ -7,7 +7,7 @@ export default function LastMovements() {
 
 	return (
 		<>
-				<h2>Ultimas Movimentações</h2>
+				<h1>Ultimas Movimentações</h1>
 				{auth.snapControl === false
 				? <SkeletonComponent count={5} size={"65%"} margin={"11px"} />
 				: <MovementsList movements={auth.movements} index={10} />

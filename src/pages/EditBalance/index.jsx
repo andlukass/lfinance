@@ -1,7 +1,3 @@
-import {
-  BackGroundContainer,
-  Buttons,
-} from "../../styling/styles";
 
 import { EditBalanceContainer, AccContainer, IconsContainer } from "./styles";
 
@@ -125,8 +121,6 @@ export default function EditBalance() {
   };
   return (
     <>
-      <BackGroundContainer>
-        {/* <MasterContainer> */}
           <EditBalanceContainer>
             {loadControl === false ? (
               <div style={{ margin: 40 }}>
@@ -225,7 +219,6 @@ export default function EditBalance() {
                 </AccContainer>
               </div>
             ))}
-            <Buttons>
               {" "}
               <button
                 className="addBtn"
@@ -235,10 +228,7 @@ export default function EditBalance() {
               >
                 Adicionar Conta
               </button>
-            </Buttons>
           </EditBalanceContainer>
-        {/* </MasterContainer> */}
-      </BackGroundContainer>
     </>
   );
 }

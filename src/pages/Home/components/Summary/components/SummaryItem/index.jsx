@@ -35,10 +35,10 @@ export default function SummaryItem(props) {
 					<p id="title">{message}</p>
 					{auth.snapControl === false
 					? <Skeleton
-						style={{ marginLeft: "1vw" }}
+						style={{ marginTop: "3px",marginLeft: "3px" }}
 						sx={{ bgcolor: `${themeColor}` }}
 						variant="rounded"
-						width={"14vh"}
+						width={"6vh"}
 						height={15}/>
 					: <p id="value" className={props.type}>
 						<MonthTotal date={date} movements={auth.movements} />

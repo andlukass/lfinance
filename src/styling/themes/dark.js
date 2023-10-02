@@ -3,14 +3,14 @@ export default {
 	title: "dark",
 
 	colors: {
-		primary: "#232c33",
-		secundary: "#75b7f5",
-		darkest: "#192025",
+		primary: "#313131",
+		secundary: "#a425db",
+		darkest: "#303034",
 
 		primaryText: "#C5C3C6",
-		secundaryText: "#fff",
+		secundaryText: "#ffffff",
 
-		expense: "#fa9696",
-		receipt: "#c5f4b0",
+		expense: "#e73131",
+		receipt: "#86cd65",
 	},
 };

@@ -20,7 +20,13 @@ export const SummaryContainer = styled(BalanceContainer)`
 
 export const ValueContainer = styled.div`
   display: flex;
-  padding: 10px;
-  height: 100px;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding: 10px;
+  height: 60pt;
+  align-items: center;
+  .receipt{
+	margin-bottom: 10pt;
+  }
 `;

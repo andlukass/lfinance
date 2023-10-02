@@ -1,18 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import { useState, useEffect } from "react";
 
 import { useAuth } from "../../../../contexts/auth";
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../services/firebase";
-import { Skeleton } from "@mui/material";
 
-import { ThemeContext } from "styled-components";
+import { EyeIconComponent } from "./EyeIconComponent";
+import { BalanceComponent } from "./BalanceComponent";
+import { PatrimonyContainer } from "./styles";
 
 export default function Patrimony() {
 	const auth = useAuth();
-
-	const { colors } = useContext(ThemeContext);
 
 	const [showValue, setShowValue] = useState(false);
 	const [accBalance, setAccBalance] = useState(0);
@@ -42,34 +40,15 @@ export default function Patrimony() {
 	}
 
 	return (
-		<>
-			{showValue ? (
-				<>
-					<p>
-						Olá {auth.userName}, você tem <br />{" "}
-						{auth.snapControl === false ? (
-							<Skeleton
-								style={{ marginTop: 2, marginBottom: -17 }}
-								sx={{ bgcolor: `${colors.primaryText}` }}
-								variant="rounded"
-								width={"3vh"}
-								height={15}
-							/>
-						) : (
-							<span>{accBalance} </span>
-						)}
-						€ em suas contas
-					</p>
-					<AiOutlineEyeInvisible onClick={handleEyeClick} size={30} />
-				</>
-			) : (
-				<>
-					<p>
-						Olá {auth.userName}, você tem <br /> ******* € em suas contas
-					</p>
-					<AiOutlineEye onClick={handleEyeClick} size={30} />
-				</>
-			)}
-			</>
+	<PatrimonyContainer>
+		<p>
+			Olá {auth.userName}, você tem <br />{" "}
+			<BalanceComponent 
+			snapControl={auth.snapControl}
+			balance={showValue?accBalance:"*******"}/>
+			€ em suas contas
+		</p>
+		<EyeIconComponent showValue={showValue} handleEyeClick={handleEyeClick} />
+	</PatrimonyContainer>
 	);
 }

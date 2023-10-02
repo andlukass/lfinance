@@ -1,85 +1,79 @@
 import { useState, useEffect } from "react";
 
-import {
-  BackGroundContainer,
-} from "../../styling/styles";
-
 import { useAuth } from "../../contexts/auth";
 
 import MovementsList from "../../components/MovementsList";
 import DateControl from "./components/DateControl";
 import DashBoard from "./components/DashBoard";
+import { ContentContainer, MonthMovementsContainer } from "./styles";
 
 export default function MonthMovements() {
-  const auth = useAuth();
+	const auth = useAuth();
 
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const [date, setDate] = useState(new Date(year, month, 0));
+	const [year, setYear] = useState(new Date().getFullYear());
+	const [month, setMonth] = useState(new Date().getMonth() + 1);
+	const [date, setDate] = useState(new Date(year, month, 0));
 
-  const [monthMovementsList, setMonthMovementsList] = useState([]);
+	const [monthMovementsList, setMonthMovementsList] = useState([]);
 
-  useEffect(() => {
-    if (auth.snapControl === false) {
-      auth.getMovements();
-    }
+	useEffect(() => {
+		if (auth.snapControl === false) {
+			auth.getMovements();
+		}
 
-    movementsByMonth();
-    setDate(new Date(year, month, 0));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [month, auth.snapControl]);
+		movementsByMonth();
+		setDate(new Date(year, month, 0));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [month, auth.snapControl]);
 
-  const addMonth = () => {
-    if (month === 12) {
-      setMonth(1);
-      setYear(year + 1);
-    } else {
-      setMonth(month + 1);
-    }
-  };
-  const decMonth = () => {
-    if (month === 1) {
-      setMonth(12);
-      setYear(year - 1);
-    } else {
-      setMonth(month - 1);
-    }
-  };
+	const addMonth = () => {
+		if (month === 12) {
+			setMonth(1);
+			setYear(year + 1);
+		} else {
+			setMonth(month + 1);
+		}
+	};
+	const decMonth = () => {
+		if (month === 1) {
+			setMonth(12);
+			setYear(year - 1);
+		} else {
+			setMonth(month - 1);
+		}
+	};
 
-  const movementsByMonth = () => {
-    let start = new Date(year, month - 1, 1);
-    let end = new Date(year, month - 1, date.getDate());
-    let tempMov = auth.movements.filter(function (ele) {
-      return ele.date >= start && ele.date <= end;
-    });
-    setMonthMovementsList(tempMov);
-  };
+	const movementsByMonth = () => {
+		let start = new Date(year, month - 1, 1);
+		let end = new Date(year, month - 1, date.getDate());
+		let tempMov = auth.movements.filter(function (ele) {
+			return ele.date >= start && ele.date <= end;
+		});
+		setMonthMovementsList(tempMov);
+	};
 
-  return (
-    <>
-      <BackGroundContainer>
-        {/* <MasterContainer> */}
-          <DateControl
-            actualMonth={month}
-            actualYear={year}
-            decMonth={decMonth}
-            addMonth={addMonth}
-          />
+	const noMovementsMessage = monthMovementsList.length ? 
+	<></> : <p>Nenhuma movimentação este mês.</p>
 
-          <DashBoard date={date} />
+	return (
+			<MonthMovementsContainer>
+				<ContentContainer>
+					<DateControl
+						actualMonth={month}
+						actualYear={year}
+						decMonth={decMonth}
+						addMonth={addMonth}
+					/>
 
-          {monthMovementsList.length === 0 ? (
-            <p>Nenhuma movimentação este mês.</p>
-          ) : (
-            <></>
-          )}
+					<DashBoard date={date} />
 
-          <MovementsList
-            movements={monthMovementsList}
-            index={monthMovementsList.length}
-          />
-        {/* </MasterContainer> */}
-      </BackGroundContainer>
-    </>
-  );
+					{noMovementsMessage}
+
+					<MovementsList
+						movements={monthMovementsList}
+						index={monthMovementsList.length}
+					/>
+				</ContentContainer>
+			</MonthMovementsContainer>
+	);
 }

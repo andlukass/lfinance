@@ -1,5 +1,3 @@
-import { BackGroundContainer, Buttons } from "../../styling/styles";
-
 import { useAuth } from "../../contexts/auth";
 
 import { useEffect } from "react";
@@ -17,8 +15,6 @@ export default function Login() {
 
   return (
     <>
-      <BackGroundContainer>
-        <Buttons>
           <button
             style={{ marginTop: "40vh" }}
             className="addBtn"
@@ -26,8 +22,6 @@ export default function Login() {
           >
             LOGAR COM GOOGLE!
           </button>
-        </Buttons>
-      </BackGroundContainer>
     </>
   );
 }

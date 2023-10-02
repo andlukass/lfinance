@@ -20,11 +20,10 @@ export default function Home() {
 		<>
 			<HomeContainer>
 				<ContentContainer className="top">
-					<Patrimony />
+					{/* <Patrimony /> */}
 					<Summary />
 				</ContentContainer>
-				{/* <HomeButtons /> */}
-				<ContentContainer>
+				<ContentContainer className="last">
 					<LastMovements />
 				</ContentContainer>
 			</HomeContainer>

@@ -4,11 +4,11 @@ export default {
 
 	colors: {
 		primary: "#ffffff",
-		secundary: "#ffffffff",
+		secundary:  "#a425db",
 		darkest: "#ecf1fcff",
 
 		primaryText: "#000000",
-		secundaryText: "#252525",
+		secundaryText: "#ffffff",
 
 		expense: "#ac0101",
 		receipt: "#135817",

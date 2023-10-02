@@ -31,7 +31,18 @@ a, p {
 }
 
 button {
-		margin-top: 40vh;
-		height: 40px;
+	margin-top: 20px;
+	padding: 10px;
+	color: ${(props) => props.theme.colors.secundaryText};
+	font-weight: bold;
+	border: 0px;
+	border-radius: 20px;
+	width: 20vh;
+	}
+	&.addBtn {
+		background-color: ${(props) => props.theme.colors.secundary};
+	}
+	&.delBtn {
+		background-color: ${(props) => props.theme.colors.expense};
 	}
 `;

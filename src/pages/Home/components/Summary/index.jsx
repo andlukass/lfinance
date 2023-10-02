@@ -8,9 +8,9 @@ export default function Summary() {
 
 	return (
 		<>
-				{/* <Link to="/month-movements">
-					<TranslateDate />
-				</Link> */}
+			<Link to="/month-movements">
+				<TranslateDate />
+			</Link>
 			<SummaryContainer>
 				<SummaryItem type={"receipt"}/>
 				<SummaryItem type={"expense"}/>
