@@ -67,8 +67,8 @@ export default function DashBoard(props) {
 						resumo do <br /> mês
 					</p>
 					<ValueContainer>
-						<SummaryItem type={"receipt"}/>
-						<SummaryItem type={"expense"}/>
+						<SummaryItem type={"receipt"} date={props.date}/>
+						<SummaryItem type={"expense"} date={props.date}/>
 					</ValueContainer>
 				</SummaryContainer>
 			</DashBoardContainer>
