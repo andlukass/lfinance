@@ -14,8 +14,9 @@ import { useAuth } from "../../contexts/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { moneyMask } from "../../components/Functions/moneyMask";
-import { MovementsContainer } from "./styles";
+import { ButtonContainer, MovementsContainer } from "./styles";
 import SubmitButton from "./SubmitButton";
+import DeleteButton from "./DeleteButton";
 
 export default function Movements() {
 	const auth = useAuth();
@@ -187,8 +188,7 @@ export default function Movements() {
 			value={movementDesc}
 			onChange={(e) => {
 				setMovementDesc(e.target.value);
-			}}
-			/>
+			}}/>
 			<h2>Valor</h2>
 			<input
 			inputMode="numeric"
@@ -230,23 +230,10 @@ export default function Movements() {
 			value={dateForm}
 			onChange={(e) => handleDate(e)}
 			/>
-			<div>
-			<SubmitButton isNew={location.state.id} btnCtrl={btnCtrl} addToDb={addToDb} />
-			{location.state.id ? (
-				<div>
-					{" "}
-					<button
-					className="delBtn"
-					onClick={delFromDb}
-					disabled={btnCtrl}
-					>
-					APAGAR
-					</button>
-				</div>
-			) : (
-				<></>
-			)}
-			</div> 
+			<ButtonContainer>
+				<SubmitButton isNew={location.state.id} btnCtrl={btnCtrl} addToDb={addToDb} />
+				<DeleteButton isNew={location.state.id} btnCtrl={btnCtrl} delFromDb={delFromDb} />
+			</ButtonContainer>
 			</MovementsContainer>
 	);
 }
