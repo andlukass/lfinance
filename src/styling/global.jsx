@@ -23,10 +23,13 @@ a, p {
 	color: ${(props) => props.theme.colors.primaryText};
 	text-decoration: none;
 	&.expense {
-			color: ${(props) => props.theme.colors.expense};
+		color: ${(props) => props.theme.colors.expense};
 	}
 	&.receipt {
 		color: ${(props) => props.theme.colors.receipt};
+	}
+	&.receipt:hover, &.expense:hover {
+		cursor: pointer;
 	}
 }
 

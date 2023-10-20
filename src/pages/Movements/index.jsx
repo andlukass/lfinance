@@ -34,7 +34,7 @@ export default function Movements() {
 	const [date, setDate] = useState(new Date());
 	const [dateForm, setDateForm] = useState();
 	const [btnCtrl, setBtnCtrl] = useState(false);
-	const isExpense = location.state.isExpense;
+	const [isExpense, setIsExpense] = useState(false);
 	//doc a ser buscado no DB, para popular menu select
 	const [movementId, setMovementId] = useState(0);
 	const userRef = doc(db, `users/${auth.userEmail}`);
@@ -51,6 +51,11 @@ export default function Movements() {
 			if (auth.movements.length === 0) {
 				auth.getAccounts();
 			}
+		if (auth.movementEdit.isExpense === true) {
+			setIsExpense(true);
+		} else {
+			setIsExpense(false);
+		}
 		if (auth.movementEdit.id) {
 			setMovementId(auth.movementEdit.id);
 			setMovementDesc(auth.movementEdit.desc);
@@ -116,6 +121,7 @@ export default function Movements() {
 	};
 
 	async function addToDb() {
+	console.log('pressionado')
 	if (movementDesc === "") {
 		alert("preencha a descrição :S");
 	} else if (movementValue === "") {
@@ -123,10 +129,10 @@ export default function Movements() {
 	} else {
 		setBtnCtrl(true);
 		// IF FAZ FUNÇÃO BTN EDITAR
-		if (location.state.id !== undefined) {
+		if (movementId !== 0) {
 		updateDoc(docRef, docData);
 		//		CASO A CONTA SEJA IGUAL
-		if (location.state.account === account) {
+		if (auth.movementEdit.account === account) {
 			let oldValueFloat = parseFloat(location.state.value);
 			let newValueFloat = parseFloat(movementValue);
 			const calcExpense = oldValueFloat - newValueFloat;
@@ -144,9 +150,9 @@ export default function Movements() {
 			await getDoc(userRef).then((snapshot) => {
 			const snap = snapshot.get(location.state.account);
 			updateDoc(userRef, {
-				[location.state.account]: isExpense
-				? snap + parseFloat(location.state.value)
-				: snap - parseFloat(location.state.value),
+				[auth.movementEdit.account]: isExpense
+				? snap + parseFloat(auth.movementEdit.value)
+				: snap - parseFloat(auth.movementEdit.value),
 			});
 			});
 			await getDoc(userRef).then((snapshot) => {
@@ -180,6 +186,7 @@ export default function Movements() {
 		auth.handleMovementModal();
 		}
 	}
+	setBtnCtrl(false);
 	}
 
 	async function delFromDb() {
@@ -213,6 +220,7 @@ export default function Movements() {
 				className={auth.movementsModalCtrl}
 				onClick={()=>auth.handleMovementModal()} />
 			<MovementsContainer className={auth.movementsModalCtrl}>
+				<p onClick={()=>{console.log(auth.movementEdit)}} >TEste</p>
 				<DescriptionInput movementDesc={movementDesc}
 						setMovementDesc={setMovementDesc} />
 				<ValueInput movementInputValue={movementInputValue}

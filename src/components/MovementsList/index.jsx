@@ -22,14 +22,13 @@ export default function MovementsList(props) {
 						.filter((item, idx) => idx < index)
 						.map((item, index) => (
 							<ListItem>
-							<div
+							<a
 								key={index}
 								to="/movements"
 								className={item.isExpense ? "expense" : "receipt"}
 								onClick={() => auth.handleMovementModal({
 									id: item.id,
 									value: item.value,
-									cor: item.Cor,
 									desc: item.desc,
 									account: item.account,
 									date: item.date,
@@ -38,7 +37,7 @@ export default function MovementsList(props) {
 							>
 								{item.type} {item.value.toString().replace(".", ",")} €{" "}
 								{item.prep} {item.desc}, dia {item.date.getDate()}
-							</div>
+							</a>
 							</ListItem>
 						))}
 				</>
