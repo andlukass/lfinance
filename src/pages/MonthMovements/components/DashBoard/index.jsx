@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 import { useAuth } from "../../../../contexts/auth";
 
-import Summary from "../../../Home/components/Summary";
 import { MonthTotalBalance } from "../../../../components/Functions/MonthTotal";
 import {
 	DashBoardContainer,

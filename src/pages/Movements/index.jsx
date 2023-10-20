@@ -15,6 +15,7 @@ import { useAuth } from "../../contexts/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { moneyMask } from "../../components/Functions/moneyMask";
 import { MovementsContainer } from "./styles";
+import SubmitButton from "./SubmitButton";
 
 export default function Movements() {
 	const auth = useAuth();
@@ -230,16 +231,7 @@ export default function Movements() {
 			onChange={(e) => handleDate(e)}
 			/>
 			<div>
-			{" "}
-			{location.state.id ? (
-				<button className="addBtn" onClick={addToDb} disabled={btnCtrl}>
-					EDITAR
-				</button>
-			) : (
-				<button className="addBtn" onClick={addToDb} disabled={btnCtrl}>
-					ADICIONAR
-				</button>
-			)}
+			<SubmitButton isNew={location.state.id} btnCtrl={btnCtrl} addToDb={addToDb} />
 			{location.state.id ? (
 				<div>
 					{" "}
