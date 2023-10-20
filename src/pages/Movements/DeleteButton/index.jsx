@@ -1,4 +1,4 @@
-export default function DeleteButton({isNew, btnCtrl, delFromDb}) {
+export default function DeleteButton({ isNew, btnCtrl, delFromDb }) {
 	const buttonText = isNew ? "EDITAR" : "ADICIONAR";
 
 	return (

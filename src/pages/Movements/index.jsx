@@ -17,6 +17,10 @@ import { moneyMask } from "../../components/Functions/moneyMask";
 import { ButtonContainer, MovementsContainer } from "./styles";
 import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
+import DescriptionInput from "./DescriptionInput";
+import ValueInput from "./ValueInput";
+import AccountInput from "./AccountInput";
+import DateInput from "./DateInput";
 
 export default function Movements() {
 	const auth = useAuth();
@@ -177,59 +181,26 @@ export default function Movements() {
 	navigate("/home");
 	}
 
+	const changeValueInput = (e) => {
+		setMovementInputValue(moneyMask(e.target.value));
+		setMovementValue(
+		parseFloat(
+			moneyMask(e.target.value).replace(".", "").replace(",", ".")
+		)
+		);
+	}
+
 	return (
 		<MovementsContainer>
-
-			<h2>Descrição</h2>
-		<input
-			type="text"
-			maxLength="25"
-			placeholder={movementDesc ? movementDesc : "ex.: Mercado"}
-			value={movementDesc}
-			onChange={(e) => {
-				setMovementDesc(e.target.value);
-			}}/>
-			<h2>Valor</h2>
-			<input
-			inputMode="numeric"
-			type="text"
-			maxLength="10"
-			placeholder={
-				movementInputValue ? movementInputValue : "ex.: 8,14 €"
-			}
-			value={movementInputValue}
-			onChange={(e) => {
-				setMovementInputValue(moneyMask(e.target.value));
-				setMovementValue(
-				parseFloat(
-					moneyMask(e.target.value).replace(".", "").replace(",", ".")
-				)
-				);
-			}}
-			/>
-			<h2>Em qual conta</h2>
-		<select
-			value={account}
-			onChange={(e) => {
-				setAccount(e.target.value);
-			}}
-			>
-			{auth.accounts.map((item, index) => (
-				<option key={index} value={item}>
-				{item}
-				</option>
-			))}
-			</select>
-			<h2>Quando foi</h2>
-			<input
-			type="date"
-			id="start"
-			name="date"
-			min="2022-01-01"
-			max="2025-12-31"
-			value={dateForm}
-			onChange={(e) => handleDate(e)}
-			/>
+			<DescriptionInput movementDesc={movementDesc}
+					setMovementDesc={setMovementDesc} />
+			<ValueInput movementInputValue={movementInputValue}
+					changeValueInput={changeValueInput} />
+			<AccountInput account={account}
+					setAccount={setAccount}
+					accounts={auth.accounts} />
+			<DateInput dateForm={dateForm}
+					handleDate={handleDate} />
 			<ButtonContainer>
 				<SubmitButton isNew={location.state.id} btnCtrl={btnCtrl} addToDb={addToDb} />
 				<DeleteButton isNew={location.state.id} btnCtrl={btnCtrl} delFromDb={delFromDb} />
