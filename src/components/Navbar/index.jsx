@@ -2,8 +2,11 @@ import { AddButton, AddButtonContainer, AddOptions, AddOptionsButton, BlackScree
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {  useState } from "react";
+import { useAuth } from "../../contexts/auth";
 
 export default function Navbar(props) {
+
+	const auth = useAuth();
 
 	const [buttonPressed, setButtonPressed] = useState(false);
 
@@ -46,21 +49,20 @@ export default function Navbar(props) {
 					<span className="addIcon">×</span>
 				</AddButton>
 				<AddOptions className="AddOptions">
-				<Link
-				className="receipt-opt"
-							to="/movements"
-							state={{ isExpense: false, title: "Adicionar Ganhos" }}
-						><AddOptionsButton className="addReceipt">	<p>↑</p>
-					<ButtonLabel>
-				Receita</ButtonLabel></AddOptionsButton></Link>
-				<Link
-					className="expense-opt"
-					to="/movements"
-					state={{ isExpense: true, title: "Adicionar Despesa" }}
-					><AddOptionsButton className="addExpense">
+				<div
+				onClick={() => auth.handleMovementModal({ isExpense: false, title: "Receita" })}
+				className="receipt-opt">
+					<AddOptionsButton className="addReceipt">
+						<p>↑</p>
+					<ButtonLabel>Receita</ButtonLabel>
+					</AddOptionsButton></div>
+				<div
+				onClick={() => auth.handleMovementModal({ isExpense: true, title: "Despesa" })}
+				className="expense-opt">
+					<AddOptionsButton className="addExpense">
 						<p>↓</p>
-				<ButtonLabel>Despesa</ButtonLabel></AddOptionsButton></Link>
-				
+				<ButtonLabel>Despesa</ButtonLabel>
+				</AddOptionsButton></div>
 				</AddOptions>
 			</AddButtonContainer>
 		</NavbarContainer>
@@ -68,3 +70,6 @@ export default function Navbar(props) {
 	);
 	}
 }
+
+// to="/movements"
+// state={{ isExpense: false, title: "Receita" }}

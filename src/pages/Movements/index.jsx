@@ -12,9 +12,9 @@ import {
 import { db } from "../../services/firebase";
 import { useAuth } from "../../contexts/auth";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { moneyMask } from "../../components/Functions/moneyMask";
-import { ButtonContainer, MovementsContainer } from "./styles";
+import { ButtonContainer, MovementsBlackScreen, MovementsContainer } from "./styles";
 import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
 import DescriptionInput from "./DescriptionInput";
@@ -24,46 +24,63 @@ import DateInput from "./DateInput";
 
 export default function Movements() {
 	const auth = useAuth();
-	const navigate = useNavigate();
 	const location = useLocation();
 
 	//valores padrão do form
-	const [movementDesc, setMovementDesc] = useState(
-	location.state.id ? location.state.desc : ""
-	);
-	const [movementValue, setMovementValue] = useState(
-	location.state.id ? location.state.value : ""
-	);
-	const [movementInputValue, setMovementInputValue] = useState(
-	location.state.id ? location.state.value : ""
-	);
-	const [account, setAccount] = useState(
-	location.state.id ? location.state.account : "dinheiro"
-	);
-	const [date, setDate] = useState(
-	location.state.id ? new Date(location.state.date) : new Date()
-	);
-	const [dateForm, setDateForm] = useState(
-	date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate()
-	);
+	const [movementDesc, setMovementDesc] = useState();
+	const [movementValue, setMovementValue] = useState();
+	const [movementInputValue, setMovementInputValue] = useState();
+	const [account, setAccount] = useState();
+	const [date, setDate] = useState(new Date());
+	const [dateForm, setDateForm] = useState();
 	const [btnCtrl, setBtnCtrl] = useState(false);
 	const isExpense = location.state.isExpense;
 	//doc a ser buscado no DB, para popular menu select
+	const [movementId, setMovementId] = useState(0);
 	const userRef = doc(db, `users/${auth.userEmail}`);
 	const docRef = doc(
 	db,
 	"users",
 	`${auth.userEmail}`,
 	"movements",
-	`${location.state.id}`
+	`${movementId}`
 	);
 
 	useEffect(() => {
-	dateFormat();
-	if (auth.movements.length === 0) {
-		auth.getAccounts();
-	}
-	});
+		dateFormat();
+			if (auth.movements.length === 0) {
+				auth.getAccounts();
+			}
+		if (auth.movementEdit.id) {
+			setMovementId(auth.movementEdit.id);
+			setMovementDesc(auth.movementEdit.desc);
+			setMovementValue(auth.movementEdit.value);
+			setMovementInputValue(auth.movementEdit.value);
+			setAccount(auth.movementEdit.account);
+			setDate(new Date(auth.movementEdit.date));
+			setDateForm(
+			auth.movementEdit.date.getFullYear() +
+				"-" +
+				auth.movementEdit.date.getMonth() +
+				"-" +
+				auth.movementEdit.date.getDate()
+			);
+		} else {
+			setMovementId(0);
+			setMovementDesc("");
+			setMovementValue("");
+			setMovementInputValue("");
+			setAccount("dinheiro");
+			setDate(new Date());
+			setDateForm(
+			new Date().getFullYear() +
+				"-" +
+				new Date().getMonth() +
+				"-" +
+				new Date().getDate()
+			);
+		}
+	}, [auth.movementEdit]);
 
 	function dateFormat() {
 		let diaHoje = ("0" + date.getDate()).slice(-2);
@@ -121,7 +138,7 @@ export default function Movements() {
 			});
 			});
 			alert("movimentação alterada!	;)");
-			navigate("/home");
+			auth.handleMovementModal();
 		} else {
 			//	 CASO SEJA CONTAS DIFERENTES
 			await getDoc(userRef).then((snapshot) => {
@@ -141,7 +158,7 @@ export default function Movements() {
 			});
 			});
 			alert("movimentação alterada!	;)");
-			navigate("/home");
+			auth.handleMovementModal();
 		}
 		} else {
 		// ELSE FAZ FUNÇÃO BTN ADICIONAR
@@ -160,7 +177,7 @@ export default function Movements() {
 			});
 		});
 		alert("movimentação adicionada!	;)");
-		navigate("/home");
+		auth.handleMovementModal();
 		}
 	}
 	}
@@ -178,7 +195,7 @@ export default function Movements() {
 		});
 	});
 	alert("movimentação apagada!");
-	navigate("/home");
+	auth.handleMovementModal();
 	}
 
 	const changeValueInput = (e) => {
@@ -191,20 +208,25 @@ export default function Movements() {
 	}
 
 	return (
-		<MovementsContainer>
-			<DescriptionInput movementDesc={movementDesc}
-					setMovementDesc={setMovementDesc} />
-			<ValueInput movementInputValue={movementInputValue}
-					changeValueInput={changeValueInput} />
-			<AccountInput account={account}
-					setAccount={setAccount}
-					accounts={auth.accounts} />
-			<DateInput dateForm={dateForm}
-					handleDate={handleDate} />
-			<ButtonContainer>
-				<SubmitButton isNew={location.state.id} btnCtrl={btnCtrl} addToDb={addToDb} />
-				<DeleteButton isNew={location.state.id} btnCtrl={btnCtrl} delFromDb={delFromDb} />
-			</ButtonContainer>
+		<>
+			<MovementsBlackScreen 
+				className={auth.movementsModalCtrl}
+				onClick={()=>auth.handleMovementModal()} />
+			<MovementsContainer className={auth.movementsModalCtrl}>
+				<DescriptionInput movementDesc={movementDesc}
+						setMovementDesc={setMovementDesc} />
+				<ValueInput movementInputValue={movementInputValue}
+						changeValueInput={changeValueInput} />
+				<AccountInput account={account}
+						setAccount={setAccount}
+						accounts={auth.accounts} />
+				<DateInput dateForm={dateForm}
+						handleDate={handleDate} />
+				<ButtonContainer>
+					<SubmitButton isNew={movementId} btnCtrl={btnCtrl} addToDb={addToDb} />
+					<DeleteButton isNew={movementId} btnCtrl={btnCtrl} delFromDb={delFromDb} />
+				</ButtonContainer>
 			</MovementsContainer>
+		</>
 	);
 }

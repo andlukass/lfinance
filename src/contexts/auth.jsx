@@ -26,6 +26,8 @@ export default function AuthProvider({ children }) {
   const [movements, setMovements] = useState([]);
   const [accounts, setAccounts] = useState([]);
   const [snapControl, setSnapControl] = useState(false);
+  const [movementsModalCtrl, setMovementsModalCtrl] = useState('hide');
+  const [movementEdit, setMovementEdit] = useState({});
 
   //================================================================
   async function signInUser() {
@@ -85,6 +87,16 @@ export default function AuthProvider({ children }) {
 
   //================================================================
 
+  	function handleMovementModal(movement) {
+		if (movementsModalCtrl === 'hide') {
+			setMovementsModalCtrl('show')
+			setMovementEdit(movement)
+		}
+		if (movementsModalCtrl === 'show') {
+			setMovementsModalCtrl('hide')
+			setMovementEdit({})
+		}
+	}
   //================================================================
 
   return (
@@ -100,6 +112,9 @@ export default function AuthProvider({ children }) {
         movements,
         accounts,
         snapControl,
+		movementsModalCtrl,
+		handleMovementModal,
+		movementEdit,
       }}
     >
       {children}

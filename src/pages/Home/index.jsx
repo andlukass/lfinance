@@ -5,6 +5,7 @@ import Patrimony from "./components/Patrimony";
 import Summary from "./components/Summary";
 import { useAuth } from "../../contexts/auth";
 import { HomeContainer, ContentContainer } from "./styles";
+import Movements from "../Movements";
 
 export default function Home() {
 	const auth = useAuth();
@@ -18,6 +19,7 @@ export default function Home() {
 
 	return (
 		<>
+			<Movements />
 			<HomeContainer>
 				<ContentContainer className="top">
 					{/* <Patrimony /> */}
