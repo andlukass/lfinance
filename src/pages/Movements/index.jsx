@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { BiCalendar, BiCommentDetail, BiWallet } from "react-icons/bi";
+
 import {
 	collection,
 	doc,
@@ -60,7 +62,8 @@ export default function Movements() {
 			setMovementId(auth.movementEdit.id);
 			setMovementDesc(auth.movementEdit.desc);
 			setMovementValue(auth.movementEdit.value);
-			setMovementInputValue(auth.movementEdit.value);
+			
+			setMovementInputValue(auth.movementEdit.value.toString().replace(".", ","));
 			setAccount(auth.movementEdit.account);
 			setDate(new Date(auth.movementEdit.date));
 			setDateForm(
@@ -73,8 +76,8 @@ export default function Movements() {
 		} else {
 			setMovementId(0);
 			setMovementDesc("");
-			setMovementValue("");
-			setMovementInputValue("");
+			setMovementValue('');
+			setMovementInputValue('0,00');
 			setAccount("dinheiro");
 			setDate(new Date());
 			setDateForm(
@@ -220,7 +223,7 @@ export default function Movements() {
 				className={auth.movementsModalCtrl}
 				onClick={()=>auth.handleMovementModal()} />
 			<MovementsContainer className={auth.movementsModalCtrl}>
-				<p onClick={()=>{console.log(auth.movementEdit)}} >TEste</p>
+				{/* <p onClick={()=>{console.log(auth.movementEdit)}} >Teste</p> */}
 				<DescriptionInput movementDesc={movementDesc}
 						setMovementDesc={setMovementDesc} />
 				<ValueInput movementInputValue={movementInputValue}

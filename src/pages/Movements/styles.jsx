@@ -12,7 +12,7 @@ export const MovementsBlackScreen = styled.div`
 	align-items: center;
 	justify-content: center;
 	z-index: 998;
-	&.show {
+	&.show {
 		display: flex;
 	}
 	&.hide {
@@ -31,12 +31,10 @@ export const MovementsContainer = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 70vw;
-	max-width: 500px;
+	max-width: 400px;
 	height: 50vh;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	&.show {
+	&.show {
 		display: flex;
 	}
 	&.hide {

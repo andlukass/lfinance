@@ -1,17 +1,36 @@
+import { useEffect } from "react";
+import { ValueInputContainer } from "./styles";
+import { useState } from "react";
+
 export default function ValueInput({ movementInputValue, changeValueInput }) {
-	return (
-		<>
-			<h2>Valor</h2>
-			<input
-			inputMode="numeric"
-			type="text"
-			maxLength="10"
-			placeholder={
-				movementInputValue ? movementInputValue : "ex.: 8,14 €"
+	
+	const [inputValueSize, setInputValueSize] = useState('');
+
+	useEffect(() => {
+		if (movementInputValue !== undefined) {
+			if (movementInputValue.indexOf(',') === -1) {
+				setInputValueSize(`${movementInputValue.length*11}pt`);
+			} else {
+				setInputValueSize(`${movementInputValue.length*9}pt`);
 			}
-			value={movementInputValue}
-			onChange={changeValueInput}
-			/>
-		</>
+		}
+	}, [movementInputValue]);
+
+	return (
+		<ValueInputContainer>
+			<label htmlFor="valueInput">Valor</label>
+			<div>
+				<input
+				style={{width: inputValueSize}}
+				id="valueInput"
+				inputMode="numeric"
+				type="text"
+				maxLength="10"
+				value={movementInputValue}
+				onChange={changeValueInput}
+				/>
+				<label htmlFor="valueInput" className="euro"> € </label>
+			</div>
+		</ValueInputContainer>
 	);
 }
