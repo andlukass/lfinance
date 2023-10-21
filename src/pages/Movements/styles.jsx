@@ -32,7 +32,7 @@ export const MovementsContainer = styled.div`
 	transform: translate(-50%, -50%);
 	width: 70vw;
 	max-width: 400px;
-	height: 57vh;
+	padding: 20pt;
 	flex-direction: column;
 	&.show {
 		display: flex;

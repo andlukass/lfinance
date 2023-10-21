@@ -9,9 +9,9 @@ export default function ValueInput({ movementInputValue, changeValueInput }) {
 	useEffect(() => {
 		if (movementInputValue !== undefined) {
 			if (movementInputValue.indexOf(',') === -1) {
-				setInputValueSize(`${movementInputValue.length*11}pt`);
+				setInputValueSize(`${movementInputValue.length*12}pt`);
 			} else {
-				setInputValueSize(`${movementInputValue.length*9}pt`);
+				setInputValueSize(`${movementInputValue.length*10}pt`);
 			}
 		}
 	}, [movementInputValue]);

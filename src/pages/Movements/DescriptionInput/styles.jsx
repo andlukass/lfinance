@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-	margin-top: 20pt;
 	margin-left: 20pt;
 	margin-right: 20pt;
 	padding-bottom: 10pt;
@@ -12,11 +11,11 @@ export const InputContainer = styled.div`
 	justify-content: start;
 	border-bottom: 0.5px solid ${(props) => props.theme.colors.primaryText};
 	input {
+		width: 70%;
 		background-color: ${(props) => props.theme.colors.primary};
 		border: none;
 		color: ${(props) => props.theme.colors.primaryText};
 		font-weight: 500;
-		/* padding-left: 20pt; */
 		font-size: large;
 	}
 	input:focus {
