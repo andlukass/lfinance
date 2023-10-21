@@ -21,7 +21,7 @@ export default function MovementsList(props) {
 					{props.movements
 						.filter((item, idx) => idx < index)
 						.map((item, index) => (
-							<ListItem>
+							<ListItem key={item.id}>
 							<a
 								key={index}
 								to="/movements"

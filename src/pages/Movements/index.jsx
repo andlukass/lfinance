@@ -27,22 +27,16 @@ export default function Movements() {
 	const location = useLocation();
 
 	//valores padrão do form
-	const [movementAccount, setMovementAccount] = useState();
+	const [movementAccount, setMovementAccount] = useState('');
 	const [movementDate, setMovementDate] = useState(today);
-	const [movementValue, setMovementValue] = useState();
-	const [movementDesc, setMovementDesc] = useState();
+	const [movementValue, setMovementValue] = useState('');
+	const [movementDesc, setMovementDesc] = useState('');
 	const [movementId, setMovementId] = useState(0);
 	const [isExpense, setIsExpense] = useState(false);
 	const [btnCtrl, setBtnCtrl] = useState(false);
 	//doc para registro no DB
+	const docRef = doc(db,"users",`${auth.userEmail}`,"movements",`${movementId}`);
 	const userRef = doc(db, `users/${auth.userEmail}`);
-	const docRef = doc(
-	db,
-	"users",
-	`${auth.userEmail}`,
-	"movements",
-	`${movementId}`
-	);
 
 	useEffect(() => {
 		if (auth.movements.length === 0) {
