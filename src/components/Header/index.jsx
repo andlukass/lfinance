@@ -49,8 +49,7 @@ export default function Header(props) {
 					onClose={handleClose}
 					MenuListProps={{
 						"aria-labelledby": "basic-button",
-					}}
-				>
+					}}>
 					{props.theme === "light" ? (
 						<MenuItem onClick={handleTheme}>Mudar para tema Escuro</MenuItem>
 					) : (

@@ -4,6 +4,7 @@ export const DashBoardContainer = styled.div`
   display: flex;
   justify-content: space-around;
   margin-bottom: 25px;
+  width: 80%;
 `;
 
 export const BalanceContainer = styled.div`

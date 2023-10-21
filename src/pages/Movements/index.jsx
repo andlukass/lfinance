@@ -12,7 +12,6 @@ import {
 import { db } from "../../services/firebase";
 import { useAuth } from "../../contexts/auth";
 
-import { useLocation } from "react-router-dom";
 import { ButtonContainer, MovementsBlackScreen, MovementsContainer } from "./styles";
 import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
@@ -24,7 +23,6 @@ import DateInput from "./DateInput";
 export default function Movements() {
 	const today = new Date();
 	const auth = useAuth();
-	const location = useLocation();
 
 	//valores padrão do form
 	const [movementAccount, setMovementAccount] = useState('');

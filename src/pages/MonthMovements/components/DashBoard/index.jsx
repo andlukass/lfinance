@@ -39,8 +39,7 @@ export default function DashBoard(props) {
 			<DashBoardContainer>
 				<BalanceContainer>
 					<p>
-						saldo do <br />
-						mês
+					<br />	Saldo <br />
 					</p>
 					{auth.snapControl === false ? (
 						<div style={{ marginTop: 33 }}>
