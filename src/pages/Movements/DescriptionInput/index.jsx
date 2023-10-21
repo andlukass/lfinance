@@ -4,7 +4,7 @@ import { InputContainer } from "./styles";
 export default function DescriptionInput({ movementDesc, setMovementDesc }) {
 	return (
 		<InputContainer >
-			<div style={{marginRight: '15pt', width: "15%"}}>
+			<div style={{marginRight: '15pt', width: "10%"}}>
 				<BiCommentDetail size={20} />
 			</div>
 			<input

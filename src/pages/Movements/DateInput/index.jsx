@@ -1,7 +1,7 @@
 import { BiCalendar } from "react-icons/bi";
 import { DateInputContainer, DateOption, OptionsContainer } from "./styles";
 
-export default function DateInput({ movementDate, handleDate }) {
+export default function DateInput({ movementDate, setMovementDate }) {
 	const today = new Date();
 	const yesterday = new Date(today);
 	yesterday.setDate(today.getDate() - 1);
@@ -27,6 +27,14 @@ export default function DateInput({ movementDate, handleDate }) {
 				&& (dateToForm(movementDate) !== dateToForm(yesterday))){
 				return 'selected';
 			} else return '';
+		}
+	}
+
+	const handleDate = (e) => {
+		if (typeof e === 'string') {
+			setMovementDate(new Date(e));
+		} else {
+			setMovementDate(new Date(e.target.value));
 		}
 	}
 

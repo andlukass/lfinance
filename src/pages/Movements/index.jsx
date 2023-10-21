@@ -13,7 +13,6 @@ import { db } from "../../services/firebase";
 import { useAuth } from "../../contexts/auth";
 
 import { useLocation } from "react-router-dom";
-import { moneyMask } from "../../components/Functions/moneyMask";
 import { ButtonContainer, MovementsBlackScreen, MovementsContainer } from "./styles";
 import SubmitButton from "./SubmitButton";
 import DeleteButton from "./DeleteButton";
@@ -28,15 +27,14 @@ export default function Movements() {
 	const location = useLocation();
 
 	//valores padrão do form
-	const [movementDesc, setMovementDesc] = useState();
-	const [movementValue, setMovementValue] = useState();
-	const [movementInputValue, setMovementInputValue] = useState();
-	const [account, setAccount] = useState();
+	const [movementAccount, setMovementAccount] = useState();
 	const [movementDate, setMovementDate] = useState(today);
-	const [btnCtrl, setBtnCtrl] = useState(false);
-	const [isExpense, setIsExpense] = useState(false);
-	//doc a ser buscado no DB, para popular menu select
+	const [movementValue, setMovementValue] = useState();
+	const [movementDesc, setMovementDesc] = useState();
 	const [movementId, setMovementId] = useState(0);
+	const [isExpense, setIsExpense] = useState(false);
+	const [btnCtrl, setBtnCtrl] = useState(false);
+	//doc para registro no DB
 	const userRef = doc(db, `users/${auth.userEmail}`);
 	const docRef = doc(
 	db,
@@ -47,9 +45,9 @@ export default function Movements() {
 	);
 
 	useEffect(() => {
-			if (auth.movements.length === 0) {
-				auth.getAccounts();
-			}
+		if (auth.movements.length === 0) {
+			auth.getAccounts();
+		}
 		if (auth.movementEdit.isExpense === true) {
 			setIsExpense(true);
 		} else {
@@ -58,23 +56,20 @@ export default function Movements() {
 		if (auth.movementEdit.id) {
 			setMovementId(auth.movementEdit.id);
 			setMovementDesc(auth.movementEdit.desc);
-			setMovementValue(auth.movementEdit.value);
+			setMovementValue(auth.movementEdit.value.toFixed(2).toString());
 			setMovementDate(auth.movementEdit.date);
-			setMovementInputValue(auth.movementEdit.value.toString().replace(".", ","));
-			setAccount(auth.movementEdit.account);
+			setMovementAccount(auth.movementEdit.account);
 		} else {
 			setMovementId(0);
 			setMovementDesc("");
-			setMovementValue('');
+			setMovementValue('0,00');
 			setMovementDate(today);
-			setMovementInputValue('0,00');
-			setAccount("dinheiro");
 		}
 	}, [auth.movementEdit]);
 
 	//doc a ser salvo no BD
 	const docData = {
-		account: account,
+		account: movementAccount,
 		date: Timestamp.fromDate(
 			new Date(
 			movementDate.getFullYear(),
@@ -87,7 +82,7 @@ export default function Movements() {
 		),
 		description: movementDesc,
 		isExpense: isExpense,
-		value: parseFloat(movementValue),
+		value: parseFloat(movementValue.toString().replace(",", ".")),
 	};
 
 	async function addToDb() {
@@ -101,41 +96,8 @@ export default function Movements() {
 		// IF FAZ FUNÇÃO BTN EDITAR
 		if (movementId !== 0) {
 		updateDoc(docRef, docData);
-		//		CASO A CONTA SEJA IGUAL
-		if (auth.movementEdit.account === account) {
-			let oldValueFloat = parseFloat(location.state.value);
-			let newValueFloat = parseFloat(movementValue);
-			const calcExpense = oldValueFloat - newValueFloat;
-			const calcReceipt = newValueFloat - oldValueFloat;
-			await getDoc(userRef).then((snapshot) => {
-			const snap = snapshot.get(account);
-			updateDoc(userRef, {
-				[account]: isExpense ? calcExpense + snap : calcReceipt + snap,
-			});
-			});
-			alert("movimentação alterada!	;)");
-			auth.handleMovementModal();
-		} else {
-			//	 CASO SEJA CONTAS DIFERENTES
-			await getDoc(userRef).then((snapshot) => {
-			const snap = snapshot.get(location.state.account);
-			updateDoc(userRef, {
-				[auth.movementEdit.account]: isExpense
-				? snap + parseFloat(auth.movementEdit.value)
-				: snap - parseFloat(auth.movementEdit.value),
-			});
-			});
-			await getDoc(userRef).then((snapshot) => {
-			const snap = snapshot.get(account);
-			updateDoc(userRef, {
-				[account]: isExpense
-				? snap - parseFloat(movementValue)
-				: snap + parseFloat(movementValue),
-			});
-			});
-			alert("movimentação alterada!	;)");
-			auth.handleMovementModal();
-		}
+		alert("movimentação alterada!	;)");
+		auth.handleMovementModal();
 		} else {
 		// ELSE FAZ FUNÇÃO BTN ADICIONAR
 		setBtnCtrl(true);
@@ -143,15 +105,6 @@ export default function Movements() {
 			collection(db, `users/${auth.userEmail}/movements`),
 			docData
 		);
-		await getDoc(userRef).then((snapshot) => {
-			const snap = snapshot.get(account);
-			const calc = isExpense
-			? parseFloat(snap) - parseFloat(movementValue)
-			: parseFloat(snap) + parseFloat(movementValue);
-			updateDoc(userRef, {
-			[account]: calc,
-			});
-		});
 		alert("movimentação adicionada!	;)");
 		auth.handleMovementModal();
 		}
@@ -162,34 +115,9 @@ export default function Movements() {
 	async function delFromDb() {
 	setBtnCtrl(true);
 	deleteDoc(docRef);
-	await getDoc(userRef).then((snapshot) => {
-		const snap = snapshot.get(account);
-		const calc = isExpense
-		? parseFloat(snap) + parseFloat(movementValue)
-		: parseFloat(snap) - parseFloat(movementValue);
-		updateDoc(userRef, {
-		[account]: calc,
-		});
-	});
 	alert("movimentação apagada!");
 	auth.handleMovementModal();
-	}
-
-	const changeValueInput = (e) => {
-		setMovementInputValue(moneyMask(e.target.value));
-		setMovementValue(
-		parseFloat(
-			moneyMask(e.target.value).replace(".", "").replace(",", ".")
-		)
-		);
-	}
-
-	const handleDate = (e) => {
-		if (typeof e === 'string') {
-			setMovementDate(new Date(e));
-		} else {
-			setMovementDate(new Date(e.target.value));
-		}
+	setBtnCtrl(false);
 	}
 
 	return (
@@ -198,16 +126,15 @@ export default function Movements() {
 				className={auth.movementsModalCtrl}
 				onClick={()=>auth.handleMovementModal()} />
 			<MovementsContainer className={auth.movementsModalCtrl}>
-				{/* <p onClick={()=>{console.log(auth.movementEdit)}} >Teste</p> */}
 				<DescriptionInput movementDesc={movementDesc}
 						setMovementDesc={setMovementDesc} />
-				<ValueInput movementInputValue={movementInputValue}
-						changeValueInput={changeValueInput} />
-				<AccountInput account={account}
-						setAccount={setAccount}
+				<ValueInput movementValue={movementValue}
+						setMovementValue={setMovementValue} />
+				<AccountInput account={movementAccount}
+						setAccount={setMovementAccount}
 						accounts={auth.accounts} />
 				<DateInput movementDate={movementDate}
-						handleDate={handleDate} />
+						setMovementDate={setMovementDate} />
 				<ButtonContainer>
 					<SubmitButton isNew={movementId} btnCtrl={btnCtrl} addToDb={addToDb} />
 					<DeleteButton isNew={movementId} btnCtrl={btnCtrl} delFromDb={delFromDb} />
