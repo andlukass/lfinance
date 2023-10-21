@@ -19,13 +19,13 @@ export const DateInputContainer = styled.div`
 		margin-left: 5%;
 		font-size: 100%;
 		padding: 8pt;
-		border: 1px solid ${(props) => props.theme.colors.secundary};
+		border: 1px solid ${(props) => props.theme.colors.tertiary};
 		border-radius: 15pt;
 		margin-bottom: 5%;
 		margin-top: 5%;
 		&.selected {
-			background-color: ${(props) => props.theme.colors.secundary};
-			color: ${(props) => props.theme.colors.primaryText};
+			background-color: ${(props) => props.theme.colors.tertiary};
+			color: ${(props) => props.theme.colors.secundaryText};
 			font-weight: bolder;
 		}
 	}
@@ -51,13 +51,15 @@ export const DateOption = styled.div`
 	margin-bottom: 5%;
 	margin-top: 5%;
 	padding: 8pt;
-	border: 1px solid ${(props) => props.theme.colors.secundary};
+	border: 1px solid ${(props) => props.theme.colors.tertiary};
 	border-radius: 15pt;
 	font-size: 80%;
 	&.selected {
-		background-color: ${(props) => props.theme.colors.secundary};
-		color: ${(props) => props.theme.colors.primaryText};
+		background-color: ${(props) => props.theme.colors.tertiary};
 		font-weight: bolder;
+		p {
+			color: ${(props) => props.theme.colors.secundaryText};
+		}
 	}
 	&:hover {
 		cursor: pointer;

@@ -19,7 +19,7 @@ export const AccountInputContainer = styled.div`
 		margin-left: 15pt;
 		font-size: large;
 		padding: 7pt;
-		border: 1px solid ${(props) => props.theme.colors.secundary};
+		border: 1px solid ${(props) => props.theme.colors.tertiary};
 		border-radius: 15pt;
 		&:hover {
 			cursor: pointer;
