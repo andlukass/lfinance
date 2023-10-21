@@ -1,5 +1,5 @@
 import { BiCalendar } from "react-icons/bi";
-import { DateInputContainer, DateOption } from "./styles";
+import { DateInputContainer, DateOption, OptionsContainer } from "./styles";
 
 export default function DateInput({ movementDate, handleDate }) {
 	const today = new Date();
@@ -32,7 +32,10 @@ export default function DateInput({ movementDate, handleDate }) {
 
 	return (
 		<DateInputContainer>
-			<BiCalendar size={20} />
+			<div style={{marginRight: '15pt'}}>
+				<BiCalendar size={20} />
+			</div>
+			<OptionsContainer>
 			<DateOption
 				className={handleClass('today')}
 				onClick={() => {handleDate(today.toString())}}>
@@ -52,6 +55,7 @@ export default function DateInput({ movementDate, handleDate }) {
 			max="2025-12-31"
 			value={dateToForm(movementDate)}
 			onChange={(e) => handleDate(e)}/>
+			</OptionsContainer>
 		</DateInputContainer>
 	);
 }

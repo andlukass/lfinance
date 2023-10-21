@@ -3,8 +3,10 @@ import { InputContainer } from "./styles";
 
 export default function DescriptionInput({ movementDesc, setMovementDesc }) {
 	return (
-		<InputContainer>
-			<BiCommentDetail size={20} />
+		<InputContainer >
+			<div style={{marginRight: '15pt'}}>
+				<BiCommentDetail size={20} />
+			</div>
 			<input
 			type="text"
 			maxLength="25"

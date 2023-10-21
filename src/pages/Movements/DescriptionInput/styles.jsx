@@ -16,7 +16,7 @@ export const InputContainer = styled.div`
 		border: none;
 		color: ${(props) => props.theme.colors.primaryText};
 		font-weight: 500;
-		margin-left: 20pt;
+		/* padding-left: 20pt; */
 		font-size: large;
 	}
 	input:focus {
