@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { BiCalendar, BiWallet } from "react-icons/bi";
-
 import {
 	collection,
 	doc,
@@ -25,6 +23,7 @@ import AccountInput from "./AccountInput";
 import DateInput from "./DateInput";
 
 export default function Movements() {
+	const today = new Date();
 	const auth = useAuth();
 	const location = useLocation();
 
@@ -33,8 +32,7 @@ export default function Movements() {
 	const [movementValue, setMovementValue] = useState();
 	const [movementInputValue, setMovementInputValue] = useState();
 	const [account, setAccount] = useState();
-	const [date, setDate] = useState(new Date());
-	const [dateForm, setDateForm] = useState();
+	const [movementDate, setMovementDate] = useState(today);
 	const [btnCtrl, setBtnCtrl] = useState(false);
 	const [isExpense, setIsExpense] = useState(false);
 	//doc a ser buscado no DB, para popular menu select
@@ -49,7 +47,6 @@ export default function Movements() {
 	);
 
 	useEffect(() => {
-		dateFormat();
 			if (auth.movements.length === 0) {
 				auth.getAccounts();
 			}
@@ -62,60 +59,30 @@ export default function Movements() {
 			setMovementId(auth.movementEdit.id);
 			setMovementDesc(auth.movementEdit.desc);
 			setMovementValue(auth.movementEdit.value);
-			
+			setMovementDate(auth.movementEdit.date);
 			setMovementInputValue(auth.movementEdit.value.toString().replace(".", ","));
 			setAccount(auth.movementEdit.account);
-			setDate(new Date(auth.movementEdit.date));
-			setDateForm(
-			auth.movementEdit.date.getFullYear() +
-				"-" +
-				auth.movementEdit.date.getMonth() +
-				"-" +
-				auth.movementEdit.date.getDate()
-			);
 		} else {
 			setMovementId(0);
 			setMovementDesc("");
 			setMovementValue('');
+			setMovementDate(today);
 			setMovementInputValue('0,00');
 			setAccount("dinheiro");
-			setDate(new Date());
-			setDateForm(
-			new Date().getFullYear() +
-				"-" +
-				new Date().getMonth() +
-				"-" +
-				new Date().getDate()
-			);
 		}
 	}, [auth.movementEdit]);
-
-	function dateFormat() {
-		let diaHoje = ("0" + date.getDate()).slice(-2);
-		let mesHoje = ("0" + (date.getMonth() + 1)).slice(-2);
-		let anoHoje = date.getFullYear();
-		let hoje = anoHoje + "-" + mesHoje + "-" + diaHoje;
-		setDateForm(hoje);
-	}
-
-	function handleDate(e) {
-		setDateForm(e.target.value);
-		setDate(new Date(e.target.value));
-		console.log(date);
-		console.log(movementDesc + movementValue + account + date);
-	}
 
 	//doc a ser salvo no BD
 	const docData = {
 		account: account,
 		date: Timestamp.fromDate(
 			new Date(
-			date.getFullYear(),
-			date.getMonth(),
-			date.getDate(),
-			date.getHours(),
-			date.getMinutes(),
-			date.getSeconds()
+			movementDate.getFullYear(),
+			movementDate.getMonth(),
+			movementDate.getDate(),
+			movementDate.getHours(),
+			movementDate.getMinutes(),
+			movementDate.getSeconds()
 			)
 		),
 		description: movementDesc,
@@ -217,6 +184,14 @@ export default function Movements() {
 		);
 	}
 
+	const handleDate = (e) => {
+		if (typeof e === 'string') {
+			setMovementDate(new Date(e));
+		} else {
+			setMovementDate(new Date(e.target.value));
+		}
+	}
+
 	return (
 		<>
 			<MovementsBlackScreen 
@@ -231,7 +206,7 @@ export default function Movements() {
 				<AccountInput account={account}
 						setAccount={setAccount}
 						accounts={auth.accounts} />
-				<DateInput dateForm={dateForm}
+				<DateInput movementDate={movementDate}
 						handleDate={handleDate} />
 				<ButtonContainer>
 					<SubmitButton isNew={movementId} btnCtrl={btnCtrl} addToDb={addToDb} />

@@ -21,6 +21,9 @@ export const AccountInputContainer = styled.div`
 		padding: 7pt;
 		border: 1px solid ${(props) => props.theme.colors.secundary};
 		border-radius: 15pt;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 	input:focus {
 		outline: none;
