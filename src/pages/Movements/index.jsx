@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { BiCalendar, BiCommentDetail, BiWallet } from "react-icons/bi";
+import { BiCalendar, BiWallet } from "react-icons/bi";
 
 import {
 	collection,
